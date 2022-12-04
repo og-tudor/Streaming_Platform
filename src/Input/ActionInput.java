@@ -1,4 +1,6 @@
-public class Action {
+package Input;
+
+public class ActionInput {
 //          "type": "on page",
 //          "page": "login",
 //          "feature": "login",
@@ -8,15 +10,15 @@ public class Action {
     private String type;
     private String page;
     private String feature;
-    private User credentials;
+    private CredentialsInput credentials;
 
-//    public Action(String type, String page, String feature) {
+//    public Input.Action(String type, String page, String feature) {
 //        this.type = type;
 //        this.page = page;
 //        this.feature = feature;
 //    }
 
-    public Action() {
+    public ActionInput() {
     }
 
     public String getType() {
@@ -43,17 +45,17 @@ public class Action {
         this.feature = feature;
     }
 
-    public User getCredentials() {
+    public CredentialsInput getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(User credentials) {
+    public void setCredentials(CredentialsInput credentials) {
         this.credentials = credentials;
     }
 
     @Override
     public String toString() {
-        return "Action{" +
+        return "Input.Action{" +
                 "type='" + type + '\'' +
                 ", page='" + page + '\'' +
                 ", feature='" + feature + '\'' +

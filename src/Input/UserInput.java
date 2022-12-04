@@ -1,27 +1,27 @@
-import java.util.ArrayList;
+package Input;
 
 public class UserInput {
-    User credentials;
+    CredentialsInput credentials;
 
-    public UserInput(User credentials) {
+    public UserInput(CredentialsInput credentials) {
         this.credentials = credentials;
     }
 
     public UserInput() {
-        this.credentials = new User();
+        this.credentials = new CredentialsInput();
     }
 
-    public User getCredentials() {
+    public CredentialsInput getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(User credentials) {
+    public void setCredentials(CredentialsInput credentials) {
         this.credentials = credentials;
     }
 
     @Override
     public String toString() {
-        return "UserInput{" +
+        return "Input.UserInput{" +
                 "credentials=" + credentials +
                 '}';
     }

@@ -1,11 +1,13 @@
+package Input;
+
 import java.util.ArrayList;
 
 public class Input {
     private ArrayList<UserInput> users;
-    private ArrayList<Movie> movies;
-    private ArrayList<Action> actions;
+    private ArrayList<MovieInput> movies;
+    private ArrayList<ActionInput> actions;
 
-    public Input(ArrayList<UserInput> users, ArrayList<Movie> movies, ArrayList<Action> actions) {
+    public Input(ArrayList<UserInput> users, ArrayList<MovieInput> movies, ArrayList<ActionInput> actions) {
         this.users = users;
         this.movies = movies;
         this.actions = actions;
@@ -13,8 +15,8 @@ public class Input {
 
     public Input() {
         this.users = new ArrayList<UserInput>();
-        this.movies = new ArrayList<Movie>();
-        this.actions = new ArrayList<Action>();
+        this.movies = new ArrayList<MovieInput>();
+        this.actions = new ArrayList<ActionInput>();
     }
 
     public ArrayList<UserInput> getUsers() {
@@ -25,25 +27,25 @@ public class Input {
         this.users = users;
     }
 
-    public ArrayList<Movie> getMovies() {
+    public ArrayList<MovieInput> getMovies() {
         return movies;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
+    public void setMovies(ArrayList<MovieInput> movies) {
         this.movies = movies;
     }
 
-    public ArrayList<Action> getActions() {
+    public ArrayList<ActionInput> getActions() {
         return actions;
     }
 
-    public void setActions(ArrayList<Action> actions) {
+    public void setActions(ArrayList<ActionInput> actions) {
         this.actions = actions;
     }
 
     @Override
     public String toString() {
-        return "Input{" +
+        return "Input.Input{" +
                 "users=" + users +
                 ", movies=" + movies +
                 ", actions=" + actions +

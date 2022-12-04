@@ -1,6 +1,6 @@
-import java.util.ArrayList;
+package Input;
 
-public class User {
+public class CredentialsInput {
     public enum AccountType {
         standard,
         premium
@@ -12,7 +12,7 @@ public class User {
     private String country;
     private int balance;
 
-    public User(String name, String password, AccountType accountType, String country, int balance) {
+    public CredentialsInput(String name, String password, AccountType accountType, String country, int balance) {
         this.name = name;
         this.password = password;
         this.accountType = accountType;
@@ -20,7 +20,7 @@ public class User {
         this.balance = balance;
     }
 
-    public User() {
+    public CredentialsInput() {
     }
 
     public String getName() {
@@ -65,7 +65,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Input.User{" +
                 "name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", accountType=" + accountType +

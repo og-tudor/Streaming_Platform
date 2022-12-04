@@ -1,12 +1,13 @@
-import java.lang.reflect.Array;
+package Input;
+
 import java.util.ArrayList;
 
-public class Movie {
+public class MovieInput {
 //          "name": "John Wick: Chapter 3 - Parabellum",
 //          "year": 2019,
 //          "duration": 131,
 //          "genres": [
-//          "Action",
+//          "Input.Action",
 //          "Thriller",
 //          "Crime"
 //          ],
@@ -33,7 +34,7 @@ public class Movie {
     private ArrayList<String> countriesBanned;
 
 
-    public Movie(String name, int year, int duration, ArrayList<String> genres, ArrayList<String> actors, ArrayList<String> countriesBanned) {
+    public MovieInput(String name, int year, int duration, ArrayList<String> genres, ArrayList<String> actors, ArrayList<String> countriesBanned) {
         this.name = name;
         this.year = year;
         this.duration = duration;
@@ -42,7 +43,7 @@ public class Movie {
         this.countriesBanned = countriesBanned;
     }
 
-    public Movie() {
+    public MovieInput() {
         this.actors = new ArrayList<String>();
         this.countriesBanned = new ArrayList<>();
         this.genres = new ArrayList<>();
@@ -99,7 +100,7 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie{" +
+        return "Input.Movie{" +
                 "name='" + name + '\'' +
                 ", year=" + year +
                 ", duration=" + duration +
