@@ -1,8 +1,21 @@
 package Input;
 
+import pageStructure.HomeAuth;
+import pageStructure.HomeUnauth;
+import pageStructure.Login;
+
 import java.util.ArrayList;
 
 public class Input {
+    private static Input instance = null;
+
+    public static Input getInstance() {
+        if (instance == null) {
+            instance = new Input() {
+            };
+        }
+        return instance;
+    }
     private ArrayList<UserInput> users;
     private ArrayList<MovieInput> movies;
     private ArrayList<ActionInput> actions;

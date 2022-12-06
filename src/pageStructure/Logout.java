@@ -8,7 +8,7 @@ public class Logout extends Page{
             instance = new Logout() {
             };
             HomeUnauth homeUnauth = (HomeUnauth) HomeUnauth.getInstance();
-            links.put("homeUnauth", homeUnauth);
+            instance.links.put("homeUnauth", homeUnauth);
         }
         return instance;
     }

@@ -14,21 +14,22 @@ public abstract class Page {
         return instance;
     }
     String name;
-    static Map<String, Page> links = new HashMap<>();
+    protected Map<String, Page> links = new HashMap<>();
 
-    public static Map<String, Page> getLinks() {
+    public Map<String, Page> getLinks() {
         return links;
     }
 
-    public static void setLinks(Map<String, Page> links) {
-        Page.links = links;
+    public void setLinks(Map<String, Page> links) {
+        this.links = links;
     }
 
-    void insertLink(String pageName, Page page) {
+    public void insertLink(String pageName, Page page) {
         links.put(pageName, page);
     }
-    void printLinks() {
+    public void printLinks() {
         System.out.println(links);
     }
+
 
 }

@@ -1,5 +1,8 @@
 package pageStructure;
 
+import Input.Credentials;
+import users.Users;
+
 public class Register extends Page{
     private static Register instance = null;
 
@@ -8,10 +11,15 @@ public class Register extends Page{
             instance = new Register() {
             };
             HomeAuth homeAuth = (HomeAuth) HomeAuth.getInstance();
-            links.put("homeAuth", homeAuth);
+            HomeUnauth homeUnauth = HomeUnauth.getInstance();
+
+            instance.links.put("homeAuth", homeAuth);
+            instance.insertLink("homeUnauth", homeUnauth);
         }
         return instance;
     }
+
+
 //    public Register() {
 //        this.name = "register";
 //

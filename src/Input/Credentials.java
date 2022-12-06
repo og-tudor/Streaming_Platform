@@ -1,6 +1,6 @@
 package Input;
 
-public class CredentialsInput {
+public class Credentials {
     public enum AccountType {
         standard,
         premium
@@ -12,7 +12,7 @@ public class CredentialsInput {
     private String country;
     private int balance;
 
-    public CredentialsInput(String name, String password, AccountType accountType, String country, int balance) {
+    public Credentials(String name, String password, AccountType accountType, String country, int balance) {
         this.name = name;
         this.password = password;
         this.accountType = accountType;
@@ -20,7 +20,7 @@ public class CredentialsInput {
         this.balance = balance;
     }
 
-    public CredentialsInput() {
+    public Credentials() {
     }
 
     public String getName() {

@@ -1,21 +1,21 @@
 package Input;
 
 public class UserInput {
-    CredentialsInput credentials;
+    Credentials credentials;
 
-    public UserInput(CredentialsInput credentials) {
+    public UserInput(Credentials credentials) {
         this.credentials = credentials;
     }
 
     public UserInput() {
-        this.credentials = new CredentialsInput();
+        this.credentials = new Credentials();
     }
 
-    public CredentialsInput getCredentials() {
+    public Credentials getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(CredentialsInput credentials) {
+    public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
     }
 

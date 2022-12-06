@@ -8,8 +8,11 @@ public class Login extends Page {
             instance = new Login() {
             };
 //            this.name = "login";
+            HomeUnauth homeUnauth = HomeUnauth.getInstance();
             HomeAuth homeAuth = (HomeAuth) HomeAuth.getInstance();
-            links.put("homeAuth", homeAuth);
+
+            instance.insertLink("homeUnauth", homeUnauth);
+            instance.insertLink("homeAuth", homeAuth);
         }
 
         return instance;

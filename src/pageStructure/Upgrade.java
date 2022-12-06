@@ -1,23 +1,19 @@
 package pageStructure;
 
-public class Movies extends Page{
-    private static Movies instance = null;
+public class Upgrade extends Page{
+    private static Upgrade instance = null;
 
-    public static Movies getInstance() {
+    public static Upgrade getInstance() {
         if (instance == null) {
-            instance = new Movies() {
+            instance = new Upgrade() {
             };
             HomeAuth homeAuth = HomeAuth.getInstance();
-            Details details = Details.getInstance();
+            Movies movies = Movies.getInstance();
             HomeUnauth homeUnauth = HomeUnauth.getInstance();
-
             instance.insertLink("homeAuth", homeAuth);
-            instance.insertLink("details", details);
+            instance.insertLink("movies", movies);
             instance.insertLink("logout", homeUnauth);
         }
         return instance;
     }
-    public Movies() {
-    }
-
 }

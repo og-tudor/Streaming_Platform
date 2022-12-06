@@ -8,9 +8,12 @@ public class HomeAuth extends Page{
             instance = new HomeAuth() {
             };
             Movies movies = (Movies) Movies.getInstance();
-            Logout logout = (Logout) Logout.getInstance();
-            links.put("movies", movies);
-            links.put("logout", logout);
+            HomeUnauth homeUnauth = HomeUnauth.getInstance();
+            Upgrade upgrade = Upgrade.getInstance();
+            instance.insertLink("movies", movies);
+            instance.insertLink("logout", homeUnauth);
+            instance.insertLink("upgrade", upgrade);
+
         }
         return instance;
     }

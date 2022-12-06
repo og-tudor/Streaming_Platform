@@ -10,7 +10,7 @@ public class ActionInput {
     private String type;
     private String page;
     private String feature;
-    private CredentialsInput credentials;
+    private Credentials credentials;
 
 //    public Input.Action(String type, String page, String feature) {
 //        this.type = type;
@@ -45,11 +45,11 @@ public class ActionInput {
         this.feature = feature;
     }
 
-    public CredentialsInput getCredentials() {
+    public Credentials getCredentials() {
         return credentials;
     }
 
-    public void setCredentials(CredentialsInput credentials) {
+    public void setCredentials(Credentials credentials) {
         this.credentials = credentials;
     }
 
