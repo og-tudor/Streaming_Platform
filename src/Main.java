@@ -45,6 +45,10 @@ public class Main {
                         if (action.getPage().equals("logout")) {
                             System.out.println("logout successul");
                             currentUser = null;
+                        } else if (Movies.getInstance().equals(currentPage)) {
+                            printOut = true;
+                            System.out.println("ajunge pe movies");
+                            currentMovieList = new MovieDataBase(allMovies);
                         }
                     } else {
                         System.out.println("error, can't change PAGE");
@@ -92,18 +96,26 @@ public class Main {
                             currentPage = HomeUnauth.getInstance();
                             currentUser = null;
                             break;
+                        case "search" :
+                            System.out.println("search succesful");
+                            printOut = true;
+                            currentMovieList.search(action.getStartsWith());
+                            break;
                     }
                     break;
             }
 
+
+            // Deep Copies
+            MovieDataBase currentMovieListCopy = new MovieDataBase(currentMovieList);
             if (printError && printOut) {
                 node.putPOJO("error", "Error");
-                node.putPOJO("currentMoviesList", currentMovieList.getMovies());
+                node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
                 node.putPOJO("currentUser", null);
                 output.add(node);
             } else if (printOut) {
                 node.putPOJO("error", null);
-                node.putPOJO("currentMoviesList", currentMovieList.getMovies());
+                node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
                 node.putPOJO("currentUser", currentUser);
                 output.add(node);
             }

@@ -12,6 +12,8 @@ public class ActionInput {
     private String feature;
     private Credentials credentials;
 
+    private String startsWith;
+
 //    public Input.Action(String type, String page, String feature) {
 //        this.type = type;
 //        this.page = page;
@@ -53,13 +55,22 @@ public class ActionInput {
         this.credentials = credentials;
     }
 
+    public String getStartsWith() {
+        return startsWith;
+    }
+
+    public void setStartsWith(String startsWith) {
+        this.startsWith = startsWith;
+    }
+
     @Override
     public String toString() {
-        return "Input.Action{" +
+        return "ActionInput{" +
                 "type='" + type + '\'' +
                 ", page='" + page + '\'' +
                 ", feature='" + feature + '\'' +
                 ", credentials=" + credentials +
+                ", startsWith='" + startsWith + '\'' +
                 '}';
     }
 }

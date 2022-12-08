@@ -1,5 +1,7 @@
 package movies;
 
+import pageStructure.Movies;
+
 import java.util.ArrayList;
 
 public class Movie {
@@ -46,6 +48,10 @@ public class Movie {
         this.numLikes = numLikes;
         this.rating = rating;
         this.numRatings = numRatings;
+    }
+
+    public Movie(Movie movie) {
+        this(movie.name, movie.year, movie.duration, movie.genres, movie.actors, movie.countriesBanned, movie.numLikes, movie.rating, movie.numRatings);
     }
 
     public String getName() {

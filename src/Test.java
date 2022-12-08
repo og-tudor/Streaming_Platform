@@ -146,8 +146,8 @@ public final class Test {
 
 //         Run a single Test
         String directory = "checker/resources/in/";
-        File testFile = new File(directory + "basic_1.json");
-        String testFileName = directory = "basic_1.json";
+        File testFile = new File(directory + "basic_2.json");
+        String testFileName = directory = "basic_2.json";
         preTestCleanUp();
         final String[] testArgv = createTestArgv(testFile);
         final Future<Object> future = createTimerTask(testArgv);
