@@ -7,29 +7,38 @@ import Input.UserInput;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Users {
+public class UserDataBase {
 
-    private static Users instance = null;
+    private static UserDataBase instance = null;
+    HashMap<String, User> users = new HashMap<>();
 
-    public static Users getInstance() {
+    public static UserDataBase getInstance() {
         if (instance == null) {
-            instance = new Users(Input.getInstance().getUsers()) {
+            ArrayList<UserInput> userInputs = Input.getInstance().getUsers();
+            instance = new UserDataBase(Input.getInstance().getUsers()) {
             };
         }
         return instance;
     }
-    HashMap<String, Credentials> users = new HashMap<>();
 
-    public Users(ArrayList<UserInput> userInputs) {
+    public UserDataBase(ArrayList<UserInput> userInputs) {
         for (int i = 0; i < userInputs.size(); i++) {
             UserInput userInput = userInputs.get(i);
             Credentials credentials = userInput.getCredentials();
-            this.users.put(credentials.getName(), credentials);
+            User user = new User(credentials, 0, 15);
+
+            this.users.put(credentials.getName(), user);
+            //TODO add stats
         }
     }
 
+    public User findUser(Credentials credentials) {
+        User user = users.get(credentials.getName());
+        return user;
+    }
     public void insertUser(Credentials credentials) {
-        users.put(credentials.getName(), credentials);
+        User user = new User(credentials, 0, 15);
+        users.put(credentials.getName(), user);
     }
 
     /** Returneaza true daca exista in baza de data un user cu credentialele date ca parametru */
@@ -38,8 +47,8 @@ public class Users {
         if (!users.containsKey(credentials.getName())) {
             return false;
         }
-        Credentials existentUser = users.get(credentials.getName());
-        if (!existentUser.getPassword().equals(credentials.getPassword())) {
+        User existentUser = users.get(credentials.getName());
+        if (!existentUser.getCredentials().getPassword().equals(credentials.getPassword())) {
             return false;
         }
         return true;
@@ -51,7 +60,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "users.Users{" +
+        return "users.UserDataBase{" +
                 "user=" + users +
                 '}';
     }

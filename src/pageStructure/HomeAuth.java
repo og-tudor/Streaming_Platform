@@ -1,4 +1,5 @@
 package pageStructure;
+import java.util.Map;
 
 public class HomeAuth extends Page{
     private static HomeAuth instance = null;
@@ -13,11 +14,8 @@ public class HomeAuth extends Page{
             instance.insertLink("movies", movies);
             instance.insertLink("logout", homeUnauth);
             instance.insertLink("upgrade", upgrade);
-
         }
         return instance;
     }
-//    public HomeAuth() {
-//
-//    }
+
 }

@@ -1,8 +1,5 @@
 package pageStructure;
 
-import Input.Credentials;
-import users.Users;
-
 public class Register extends Page{
     private static Register instance = null;
 

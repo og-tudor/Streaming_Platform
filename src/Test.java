@@ -143,7 +143,8 @@ public final class Test {
 //
 //            runTest(testFileName, config, future);
 //        }
-        // Run a single Test
+
+//         Run a single Test
         String directory = "checker/resources/in/";
         File testFile = new File(directory + "basic_1.json");
         String testFileName = directory = "basic_1.json";

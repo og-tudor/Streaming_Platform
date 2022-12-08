@@ -10,9 +10,9 @@ public class Credentials {
     private String password;
     private AccountType accountType;
     private String country;
-    private int balance;
+    private String balance;
 
-    public Credentials(String name, String password, AccountType accountType, String country, int balance) {
+    public Credentials(String name, String password, AccountType accountType, String country, String balance) {
         this.name = name;
         this.password = password;
         this.accountType = accountType;
@@ -55,11 +55,11 @@ public class Credentials {
         this.country = country;
     }
 
-    public int getBalance() {
+    public String getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 

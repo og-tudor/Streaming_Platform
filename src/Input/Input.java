@@ -8,29 +8,38 @@ import java.util.ArrayList;
 
 public class Input {
     private static Input instance = null;
-
-    public static Input getInstance() {
+    private ArrayList<UserInput> users = new ArrayList<UserInput>();
+    private ArrayList<MovieInput> movies = new ArrayList<MovieInput>();
+    private ArrayList<ActionInput> actions = new ArrayList<ActionInput>();
+    public static synchronized Input getInstance() {
         if (instance == null) {
             instance = new Input() {
+
             };
         }
         return instance;
     }
-    private ArrayList<UserInput> users;
-    private ArrayList<MovieInput> movies;
-    private ArrayList<ActionInput> actions;
 
-    public Input(ArrayList<UserInput> users, ArrayList<MovieInput> movies, ArrayList<ActionInput> actions) {
-        this.users = users;
-        this.movies = movies;
-        this.actions = actions;
+    public static synchronized Input createInstance(Input inputData) {
+        if (instance == null) {
+            instance = inputData; {
+            }
+        }
+        return instance;
     }
 
-    public Input() {
-        this.users = new ArrayList<UserInput>();
-        this.movies = new ArrayList<MovieInput>();
-        this.actions = new ArrayList<ActionInput>();
-    }
+
+//    public Input(ArrayList<UserInput> users, ArrayList<MovieInput> movies, ArrayList<ActionInput> actions) {
+//        this.users = users;
+//        this.movies = movies;
+//        this.actions = actions;
+//    }
+
+//    public Input() {
+//        this.users = new ArrayList<UserInput>();
+//        this.movies = new ArrayList<MovieInput>();
+//        this.actions = new ArrayList<ActionInput>();
+//    }
 
     public ArrayList<UserInput> getUsers() {
         return users;
