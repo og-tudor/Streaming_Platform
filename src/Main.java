@@ -48,7 +48,7 @@ public class Main {
                         } else if (Movies.getInstance().equals(currentPage)) {
                             printOut = true;
                             System.out.println("ajunge pe movies");
-                            currentMovieList = new MovieDataBase(allMovies);
+                            currentMovieList = new MovieDataBase(allMovies, currentUser);
                         }
                     } else {
                         System.out.println("error, can't change PAGE");
@@ -90,16 +90,21 @@ public class Main {
                             System.out.println("register & login succesul");
 
                             break;
-                        case "logout" :
-                            System.out.println("logout successul");
-                            printOut = false;
-                            currentPage = HomeUnauth.getInstance();
-                            currentUser = null;
-                            break;
                         case "search" :
                             System.out.println("search succesful");
                             printOut = true;
                             currentMovieList.search(action.getStartsWith());
+                            break;
+                        case "filter" :
+                            printOut = true;
+                            if (!Movies.getInstance().equals(currentPage)) {
+                                System.out.println("not on MoviesPage");
+                                printError = true;
+                                break;
+                            }
+                            System.out.println("filter succesful");
+                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.filter(action);
                             break;
                     }
                     break;
@@ -107,7 +112,7 @@ public class Main {
 
 
             // Deep Copies
-            MovieDataBase currentMovieListCopy = new MovieDataBase(currentMovieList);
+            MovieDataBase currentMovieListCopy = new MovieDataBase(currentMovieList, currentUser);
             if (printError && printOut) {
                 node.putPOJO("error", "Error");
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());

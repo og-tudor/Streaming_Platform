@@ -1,10 +1,12 @@
 package movies;
 
+import Input.ActionInput;
+import Input.Filter;
 import Input.MovieInput;
+import Input.Sort;
+import users.User;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.NavigableMap;
+import java.util.*;
 
 public class MovieDataBase {
     LinkedList<Movie> movies = new LinkedList<>();
@@ -17,10 +19,12 @@ public class MovieDataBase {
         }
     }
 
-    public MovieDataBase(MovieDataBase movieDataBase) {
+    public MovieDataBase(MovieDataBase movieDataBase, User user) {
         for (int i = 0; i < movieDataBase.getMovies().size(); i++) {
-            Movie movie = new Movie(movieDataBase.getMovies().get(i));
-            movies.add(movie);
+            if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
+                Movie movie = new Movie(movieDataBase.getMovies().get(i));
+                movies.add(movie);
+            }
         }
     }
 
@@ -34,6 +38,16 @@ public class MovieDataBase {
 ////        }
     }
 
+    public  void filter(ActionInput actionInput) {
+        Filter filter = actionInput.getFilters();
+        Sort sort = filter.getSort();
+        if (sort.getRating().equals("decreasing") && sort.getDuration().equals("decreasing")) {
+            this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration));
+            Collections.reverse(movies);
+        }
+//        this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration));
+
+    }
     public void insertMovie(Movie movie) {
         movies.add(movie);
     }
@@ -54,4 +68,5 @@ public class MovieDataBase {
                 "movies=" + movies +
                 '}';
     }
+
 }

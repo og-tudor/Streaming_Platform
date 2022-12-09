@@ -3,6 +3,7 @@ package movies;
 import pageStructure.Movies;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Movie {
 //            "name": "Lord, Save Us from Your Followers",
@@ -140,4 +141,21 @@ public class Movie {
                 ", numRatings=" + numRatings +
                 '}';
     }
+
+//    @Override
+//    public int compareTo(Movie o) {
+//        if (this.rating == o.rating) {
+//            if (this.duration == o.duration) {
+//                return 0;
+//            } else if (this.duration > o.duration) {
+//                return 1;
+//            } else {
+//                return -1;
+//            }
+//        } else if (this.rating > o.rating) {
+//            return 1;
+//        } else {
+//            return -1;
+//        }
+//    }
 }
