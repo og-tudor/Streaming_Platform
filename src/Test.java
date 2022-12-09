@@ -133,26 +133,16 @@ public final class Test {
         totalScore = config.getCheckstyleScore();
         int manualScore = config.getReadmeScore() + config.getHomeworkDesignScore();
 
-//        for (final File testFile : Objects.requireNonNull(TEST_INPUTS_FILE.listFiles())) {
-//            String testFileName = testFile.getName();
-//
-//            preTestCleanUp();
-//
-//            final String[] testArgv = createTestArgv(testFile);
-//            final Future<Object> future = createTimerTask(testArgv);
-//
-//            runTest(testFileName, config, future);
-//        }
+        for (final File testFile : Objects.requireNonNull(TEST_INPUTS_FILE.listFiles())) {
+            String testFileName = testFile.getName();
 
-//         Run a single Test
-        String directory = "checker/resources/in/";
-        File testFile = new File(directory + "basic_2.json");
-        String testFileName = directory = "basic_2.json";
-        preTestCleanUp();
-        final String[] testArgv = createTestArgv(testFile);
-        final Future<Object> future = createTimerTask(testArgv);
-        runTest(testFileName, config, future);
-        // Pana aici am umblat TODO
+            preTestCleanUp();
+
+            final String[] testArgv = createTestArgv(testFile);
+            final Future<Object> future = createTimerTask(testArgv);
+
+            runTest(testFileName, config, future);
+        }
 
         score += Checkstyle.testCheckstyle();
         System.out.println("Total score: .......................... " + score + "/" + totalScore);

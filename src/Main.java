@@ -122,8 +122,10 @@ public class Main {
         }
 
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-        objectWriter.writeValue(new File("checker/resources/result/output.json"), output);
-//        objectWriter.writeValue(new File("checker/resources/result/output.json"), inputData);
+
+        // TODO delete out file
+        char[] testNumber = args[0].toCharArray();
+        objectWriter.writeValue(new File("checker/resources/result/output"+ testNumber[testNumber.length-6] + ".json"), output);
         objectWriter.writeValue(new File("results.out"), output);
 
     }
