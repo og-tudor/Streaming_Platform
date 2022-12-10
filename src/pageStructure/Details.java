@@ -13,7 +13,7 @@ public class Details extends Page{
             HomeUnauth homeUnauth = HomeUnauth.getInstance();
             instance.insertLink("homeAuth", homeAuth);
             instance.insertLink("movies", movies);
-            instance.insertLink("upgrade", upgrade);
+            instance.insertLink("upgrades", upgrade);
             instance.insertLink("logout", homeUnauth);
 
         }

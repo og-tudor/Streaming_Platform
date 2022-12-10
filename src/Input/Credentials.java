@@ -23,6 +23,9 @@ public class Credentials {
     public Credentials() {
     }
 
+    public Credentials(Credentials credentials) {
+        this(credentials.getName(), credentials.getPassword(), credentials.getAccountType(), credentials.getCountry(), credentials.getBalance());
+    }
     public String getName() {
         return name;
     }

@@ -5,6 +5,7 @@ import movies.Movie;
 import movies.MovieDataBase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class User {
     Credentials credentials;
@@ -28,6 +29,16 @@ public class User {
 //        this.watchedMovies = new MovieDataBase();
 //        this.likedMovies = new MovieDataBase();
 //        this.ratedMovies = new MovieDataBase();
+    }
+
+    public User(User user) {
+        this.credentials = new Credentials(user.getCredentials());
+        this.tokensCount = user.getTokensCount();
+        this.numFreePremiumMovies = user.getNumFreePremiumMovies();
+        this.watchedMovies.addAll(user.watchedMovies);
+        this.purchasedMovies.addAll(user.purchasedMovies);
+        this.likedMovies.addAll(user.likedMovies);
+        this.ratedMovies.addAll(user.ratedMovies);
     }
 
     public Credentials getCredentials() {

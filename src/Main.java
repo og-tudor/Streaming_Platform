@@ -44,10 +44,13 @@ public class Main {
                         currentPage = currentPage.getLinks().get(switchPage);
                         if (action.getPage().equals("logout")) {
                             System.out.println("logout successul");
+                            currentMovieList.getMovies().clear();
                             currentUser = null;
                         } else if (Movies.getInstance().equals(currentPage)) {
                             printOut = true;
-                            System.out.println("ajunge pe movies");
+                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                        } else if (Upgrade.getInstance().equals(currentPage)) {
+                            printOut = true;
                             currentMovieList = new MovieDataBase(allMovies, currentUser);
                         }
                     } else {
@@ -93,6 +96,12 @@ public class Main {
                         case "search" :
                             System.out.println("search succesful");
                             printOut = true;
+                            if (!Movies.getInstance().equals(currentPage)) {
+                                System.out.println("not on MoviesPage");
+                                printError = true;
+                                break;
+                            }
+                            currentMovieList = new MovieDataBase(allMovies, currentUser);
                             currentMovieList.search(action.getStartsWith());
                             break;
                         case "filter" :
@@ -104,7 +113,60 @@ public class Main {
                             }
                             System.out.println("filter succesful");
                             currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            System.out.println(currentMovieList);
                             currentMovieList.filter(action);
+                            System.out.println("after filter " + currentMovieList);
+                            System.out.println("printError " + printError);
+
+                            break;
+
+                        case "buy tokens":
+                            if (!Upgrade.getInstance().equals(currentPage)) {
+                                System.out.println("not on UpgradesPage");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            int currentUserBalance = Integer.parseInt(currentUser.getCredentials().getBalance());
+                            int count = Integer.parseInt(action.getCount());
+                            if (count <= currentUserBalance) {
+                                currentUser.setTokensCount(currentUser.getTokensCount() + count);
+                                String newBalance = Integer.toString(currentUserBalance - count);
+                                currentUser.getCredentials().setBalance(newBalance);
+                                System.out.println("tokens bought");
+                            } else {
+                                System.out.println("Balance too low to purchase tokens");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            break;
+
+                        case "buy premium account":
+                            if (!Upgrade.getInstance().equals(currentPage)) {
+                                System.out.println("not on UpgradesPage");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            int userTokens = currentUser.getTokensCount();
+                            // already premium user
+                            if (currentUser.getCredentials().getAccountType().equals(Credentials.AccountType.premium)) {
+                                printOut = true;
+                                printError = true;
+                                System.out.println("already a premium user");
+                                break;
+                            }
+                            if (userTokens >= 10) {
+                                currentUser.setTokensCount(currentUser.getTokensCount() - 10);
+                                currentUser.getCredentials().setAccountType(Credentials.AccountType.premium);
+                                System.out.println("premium bought");
+                            } else {
+                                System.out.println("Balance too low to purchase premium");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
                             break;
                     }
                     break;
@@ -113,6 +175,9 @@ public class Main {
 
             // Deep Copies
             MovieDataBase currentMovieListCopy = new MovieDataBase(currentMovieList, currentUser);
+            User currentUserCopy = null;
+            if (currentUser != null)
+                currentUserCopy = new User(currentUser);
             if (printError && printOut) {
                 node.putPOJO("error", "Error");
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
@@ -121,7 +186,7 @@ public class Main {
             } else if (printOut) {
                 node.putPOJO("error", null);
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
-                node.putPOJO("currentUser", currentUser);
+                node.putPOJO("currentUser", currentUserCopy);
                 output.add(node);
             }
         }

@@ -20,13 +20,19 @@ public class MovieDataBase {
     }
 
     public MovieDataBase(MovieDataBase movieDataBase, User user) {
-        for (int i = 0; i < movieDataBase.getMovies().size(); i++) {
-            if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
-                Movie movie = new Movie(movieDataBase.getMovies().get(i));
-                movies.add(movie);
+        if (user != null) {
+            for (int i = 0; i < movieDataBase.getMovies().size(); i++) {
+                if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
+                    Movie movie = new Movie(movieDataBase.getMovies().get(i));
+                    movies.add(movie);
+                }
             }
+        } else {
+            this.movies.clear();
         }
     }
+
+
 
     public void search(String startWith) {
         this.movies.removeIf(x -> !(x.getName().contains(startWith)));
@@ -40,13 +46,21 @@ public class MovieDataBase {
 
     public  void filter(ActionInput actionInput) {
         Filter filter = actionInput.getFilters();
+
+        // Filter movies by actor
+//        if (filter.getContains() != null) {
+//            ArrayList<String> actorFilter = filter.getContains().getActors();
+//            for (int i = 0; i < actorFilter.size(); i++) {
+//                movies.removeIf(x -> !(x.getActors().containsAll(actorFilter)));
+//            }
+//        }
+
+        // Sort
         Sort sort = filter.getSort();
         if (sort.getRating().equals("decreasing") && sort.getDuration().equals("decreasing")) {
             this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration));
             Collections.reverse(movies);
         }
-//        this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration));
-
     }
     public void insertMovie(Movie movie) {
         movies.add(movie);
