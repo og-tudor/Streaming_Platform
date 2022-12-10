@@ -12,7 +12,7 @@ public class Movies extends Page{
             HomeUnauth homeUnauth = HomeUnauth.getInstance();
 
             instance.insertLink("homeAuth", homeAuth);
-            instance.insertLink("details", details);
+            instance.insertLink("see details", details);
             instance.insertLink("logout", homeUnauth);
         }
         return instance;

@@ -41,6 +41,32 @@ public class User {
         this.ratedMovies.addAll(user.ratedMovies);
     }
 
+    /** Returns true if there was an error when buying the movie */
+    public boolean purchaseMovie(Movie movie) {
+        if (this.numFreePremiumMovies > 0 && this.credentials.getAccountType().equals(Credentials.AccountType.premium)) {
+            this.purchasedMovies.add(movie);
+            this.numFreePremiumMovies -= 1;
+        } else if (this.tokensCount >= 2){
+            this.purchasedMovies.add(movie);
+            this.tokensCount -= 2;
+        } else {
+            return true;
+        }
+        System.out.println("movie purchased");
+        return false;
+    }
+
+    /** Returns true if there was an error when watching the movie */
+    public boolean watchMovie(Movie movie) {
+        if (this.purchasedMovies.contains(movie)) {
+            this.watchedMovies.add(movie);
+            System.out.println("movie watched");
+        } else {
+            return true;
+        }
+        return false;
+    }
+
     public Credentials getCredentials() {
         return credentials;
     }

@@ -11,10 +11,12 @@ public class Details extends Page{
             Movies movies = Movies.getInstance();
             Upgrade upgrade = Upgrade.getInstance();
             HomeUnauth homeUnauth = HomeUnauth.getInstance();
+
             instance.insertLink("homeAuth", homeAuth);
             instance.insertLink("movies", movies);
             instance.insertLink("upgrades", upgrade);
             instance.insertLink("logout", homeUnauth);
+            instance.insertLink("see details", instance);
 
         }
         return instance;

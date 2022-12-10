@@ -50,8 +50,17 @@ public class Main {
                             printOut = true;
                             currentMovieList = new MovieDataBase(allMovies, currentUser);
                         } else if (Upgrade.getInstance().equals(currentPage)) {
-                            printOut = true;
+//                            printOut = true;
                             currentMovieList = new MovieDataBase(allMovies, currentUser);
+                        } else if (Details.getInstance().equals(currentPage)) {
+                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.search(action.getMovie());
+                            System.out.println(currentMovieList);
+                            printOut = true;
+                            if (currentMovieList.getMovies().isEmpty()) {
+                                printError = true;
+                                System.out.println("There is no such movie");
+                            }
                         }
                     } else {
                         System.out.println("error, can't change PAGE");
@@ -166,6 +175,30 @@ public class Main {
                                 printOut = true;
                                 printError = true;
                                 break;
+                            }
+                            break;
+                        case "purchase":
+                            if (!Details.getInstance().equals(currentPage)) {
+                                System.out.println("not on DetailsPage");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            if (!currentMovieList.getMovies().isEmpty()) {
+                                printError = currentUser.purchaseMovie(currentMovieList.getMovies().getFirst());
+                                printOut = true;
+                            }
+                            break;
+                        case "watch":
+                            if (!Details.getInstance().equals(currentPage)) {
+                                System.out.println("not on DetailsPage");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            if (!currentMovieList.getMovies().isEmpty()) {
+                                printError = currentUser.watchMovie(currentMovieList.getMovies().getFirst());
+                                printOut = true;
                             }
                             break;
                     }
