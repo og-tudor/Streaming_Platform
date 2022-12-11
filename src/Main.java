@@ -48,12 +48,15 @@ public class Main {
                             currentUser = null;
                         } else if (Movies.getInstance().equals(currentPage)) {
                             printOut = true;
-                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+//                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.populate(currentUser);
                         } else if (Upgrade.getInstance().equals(currentPage)) {
 //                            printOut = true;
-                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+//                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.populate(currentUser);
                         } else if (Details.getInstance().equals(currentPage)) {
-                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+//                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.populate(currentUser);
                             currentMovieList.search(action.getMovie());
                             System.out.println(currentMovieList);
                             printOut = true;
@@ -110,7 +113,8 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+//                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.populate(currentUser);
                             currentMovieList.search(action.getStartsWith());
                             break;
                         case "filter" :
@@ -121,7 +125,8 @@ public class Main {
                                 break;
                             }
                             System.out.println("filter succesful");
-                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+//                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            currentMovieList.populate(currentUser);
                             System.out.println(currentMovieList);
                             currentMovieList.filter(action);
                             System.out.println("after filter " + currentMovieList);
@@ -213,6 +218,19 @@ public class Main {
                                 printOut = true;
                             }
                             break;
+                        case "rate":
+                            if (!Details.getInstance().equals(currentPage)) {
+                                System.out.println("not on DetailsPage");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            if (!currentMovieList.getMovies().isEmpty()) {
+                                double rate = action.getRate();
+                                printError = currentUser.rateMovie(currentMovieList.getMovies().get(0), rate);
+                                printOut = true;
+                            }
+                            break;
                     }
                     break;
             }
@@ -224,12 +242,12 @@ public class Main {
             if (currentUser != null)
                 currentUserCopy = new User(currentUser);
             if (printError && printOut) {
+                currentMovieListCopy.getMovies().clear();
                 node.putPOJO("error", "Error");
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
                 node.putPOJO("currentUser", null);
                 output.add(node);
             } else if (printOut) {
-//                currentMovieListCopy.getMovies().clear();
                 node.putPOJO("error", null);
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
                 node.putPOJO("currentUser", currentUserCopy);

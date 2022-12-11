@@ -9,6 +9,7 @@ import pageStructure.HomeAuth;
 import pageStructure.HomeUnauth;
 import pageStructure.Movies;
 import users.User;
+import users.UserDataBase;
 
 import java.util.*;
 
@@ -40,6 +41,22 @@ public class MovieDataBase {
             for (int i = 0; i < movieDataBase.getMovies().size(); i++) {
                 if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
                     Movie movie = new Movie(movieDataBase.getMovies().get(i));
+                    movies.add(movie);
+                }
+            }
+        } else {
+            this.movies.clear();
+        }
+    }
+
+    public void populate(User user) {
+        this.movies.clear();
+        if (user != null) {
+            MovieDataBase movieDataBase = MovieDataBase.getInstance();
+            for (int i = 0; i < movieDataBase.getMovies().size(); i++) {
+                if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
+//                    Movie movie = new Movie(movieDataBase.getMovies().get(i));
+                    Movie movie = movieDataBase.getMovies().get(i);
                     movies.add(movie);
                 }
             }
