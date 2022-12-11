@@ -132,28 +132,28 @@ public final class Test {
         Config config = loadConfig();
         totalScore = config.getCheckstyleScore();
         int manualScore = config.getReadmeScore() + config.getHomeworkDesignScore();
-
-        for (final File testFile : Objects.requireNonNull(TEST_INPUTS_FILE.listFiles())) {
-            String testFileName = testFile.getName();
-
-            preTestCleanUp();
-
-            final String[] testArgv = createTestArgv(testFile);
-            final Future<Object> future = createTimerTask(testArgv);
-
-            runTest(testFileName, config, future);
-        }
+//
+//        for (final File testFile : Objects.requireNonNull(TEST_INPUTS_FILE.listFiles())) {
+//            String testFileName = testFile.getName();
+//
+//            preTestCleanUp();
+//
+//            final String[] testArgv = createTestArgv(testFile);
+//            final Future<Object> future = createTimerTask(testArgv);
+//
+//            runTest(testFileName, config, future);
+//        }
 
         // RUN A SINGLE TEST
-//        File testFile = new File("checker/resources/in/basic_6.json");
-//        String testFileName = testFile.getName();
-//
-//        preTestCleanUp();
-//
-//        final String[] testArgv = createTestArgv(testFile);
-//        final Future<Object> future = createTimerTask(testArgv);
-//
-//        runTest(testFileName, config, future);
+        File testFile = new File("checker/resources/in/basic_6.json");
+        String testFileName = testFile.getName();
+
+        preTestCleanUp();
+
+        final String[] testArgv = createTestArgv(testFile);
+        final Future<Object> future = createTimerTask(testArgv);
+
+        runTest(testFileName, config, future);
 
         // END OF TEST
 

@@ -101,8 +101,8 @@ public class MovieDataBase {
         // Sort
         Sort sort = filter.getSort();
         if (sort.getRating().equals("decreasing") && sort.getDuration().equals("decreasing")) {
-            this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration));
-            Collections.reverse(movies);
+            this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration).thenComparing(Movie::getName));
+//            Collections.reverse(movies);
         }
     }
     public void insertMovie(Movie movie) {

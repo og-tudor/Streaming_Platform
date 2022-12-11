@@ -87,7 +87,7 @@
 }, {
   "error" : null,
   "currentMoviesList" : [ {
-    "name" : "Titanic",
+    "name" : "John Wick: Chapter 3 - Parabellum",
     "year" : 2019,
     "duration" : 131,
     "genres" : [ "Action", "Thriller", "Crime" ],
@@ -97,7 +97,7 @@
     "rating" : 0.0,
     "numRatings" : 0
   }, {
-    "name" : "John Wick: Chapter 3 - Parabellum",
+    "name" : "Titanic",
     "year" : 2019,
     "duration" : 131,
     "genres" : [ "Action", "Thriller", "Crime" ],
@@ -135,7 +135,7 @@
       "password" : "secret",
       "accountType" : "standard",
       "country" : "Romania",
-      "balance" : "50"
+      "balance" : "200"
     },
     "tokensCount" : 0,
     "numFreePremiumMovies" : 15,
@@ -173,7 +173,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 15,
@@ -209,7 +209,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 15,
@@ -237,7 +237,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 14,
@@ -275,7 +275,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 14,
@@ -323,7 +323,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 14,
@@ -391,7 +391,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 14,
@@ -449,7 +449,7 @@
       "password" : "secret",
       "accountType" : "premium",
       "country" : "Romania",
-      "balance" : "0"
+      "balance" : "150"
     },
     "tokensCount" : 40,
     "numFreePremiumMovies" : 14,
