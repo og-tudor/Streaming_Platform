@@ -27,9 +27,9 @@ public class Main {
         ArrayList<ActionInput> actions = inputData.getActions();
         Page currentPage = HomeUnauth.getInstance();
         User currentUser = null;
-        MovieDataBase allMovies = new MovieDataBase(inputData.getMovies());
+        MovieDataBase allMovies = MovieDataBase.getInstance(inputData.getMovies());
         MovieDataBase currentMovieList = new MovieDataBase();
-        UserDataBase userDataBase = new UserDataBase(inputData.getUsers());
+        UserDataBase userDataBase = UserDataBase.getInstance(inputData.getUsers());
 
         for (int i = 0; i < actions.size(); i++) {
             boolean printOut = false;
@@ -185,7 +185,7 @@ public class Main {
                                 break;
                             }
                             if (!currentMovieList.getMovies().isEmpty()) {
-                                printError = currentUser.purchaseMovie(currentMovieList.getMovies().getFirst());
+                                printError = currentUser.purchaseMovie(currentMovieList.getMovies().get(0));
                                 printOut = true;
                             }
                             break;
@@ -197,7 +197,19 @@ public class Main {
                                 break;
                             }
                             if (!currentMovieList.getMovies().isEmpty()) {
-                                printError = currentUser.watchMovie(currentMovieList.getMovies().getFirst());
+                                printError = currentUser.watchMovie(currentMovieList.getMovies().get(0));
+                                printOut = true;
+                            }
+                            break;
+                        case "like":
+                            if (!Details.getInstance().equals(currentPage)) {
+                                System.out.println("not on DetailsPage");
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            if (!currentMovieList.getMovies().isEmpty()) {
+                                printError = currentUser.likeMovie(currentMovieList.getMovies().get(0));
                                 printOut = true;
                             }
                             break;
@@ -217,6 +229,7 @@ public class Main {
                 node.putPOJO("currentUser", null);
                 output.add(node);
             } else if (printOut) {
+//                currentMovieListCopy.getMovies().clear();
                 node.putPOJO("error", null);
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
                 node.putPOJO("currentUser", currentUserCopy);

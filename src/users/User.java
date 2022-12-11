@@ -35,10 +35,26 @@ public class User {
         this.credentials = new Credentials(user.getCredentials());
         this.tokensCount = user.getTokensCount();
         this.numFreePremiumMovies = user.getNumFreePremiumMovies();
-        this.watchedMovies.addAll(user.watchedMovies);
-        this.purchasedMovies.addAll(user.purchasedMovies);
-        this.likedMovies.addAll(user.likedMovies);
-        this.ratedMovies.addAll(user.ratedMovies);
+//        this.watchedMovies.addAll(user.watchedMovies);
+        for (int i = 0; i < user.watchedMovies.size(); i++) {
+            Movie movie = new Movie(user.watchedMovies.get(i));
+            this.watchedMovies.add(movie);
+        }
+        for (int i = 0; i < user.purchasedMovies.size(); i++) {
+            Movie movie = new Movie(user.purchasedMovies.get(i));
+            this.purchasedMovies.add(movie);
+        }
+        for (int i = 0; i < user.likedMovies.size(); i++) {
+            Movie movie = new Movie(user.likedMovies.get(i));
+            this.likedMovies.add(movie);
+        }
+        for (int i = 0; i < user.ratedMovies.size(); i++) {
+            Movie movie = new Movie(user.ratedMovies.get(i));
+            this.ratedMovies.add(movie);
+        }
+//        this.purchasedMovies.addAll(user.purchasedMovies);
+//        this.likedMovies.addAll(user.likedMovies);
+//        this.ratedMovies.addAll(user.ratedMovies);
     }
 
     /** Returns true if there was an error when buying the movie */
@@ -62,6 +78,21 @@ public class User {
             this.watchedMovies.add(movie);
             System.out.println("movie watched");
         } else {
+            System.out.println("movie not puchased, can t be watched");
+            return true;
+        }
+        return false;
+    }
+
+    public boolean likeMovie(Movie movie) {
+        if (this.watchedMovies.contains(movie)) {
+//            movie.setNumLikes(movie.getNumLikes() + 1);
+            Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
+            movieInDataBase.setNumLikes(movieInDataBase.getNumLikes() + 1);
+            this.likedMovies.add(movie);
+            System.out.println("movie liked");
+        } else {
+            System.out.println("movie not watched, can t be liked");
             return true;
         }
         return false;

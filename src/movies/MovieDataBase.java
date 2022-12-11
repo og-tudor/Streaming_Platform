@@ -4,12 +4,28 @@ import Input.ActionInput;
 import Input.Filter;
 import Input.MovieInput;
 import Input.Sort;
+import pageStructure.Details;
+import pageStructure.HomeAuth;
+import pageStructure.HomeUnauth;
+import pageStructure.Movies;
 import users.User;
 
 import java.util.*;
 
 public class MovieDataBase {
-    LinkedList<Movie> movies = new LinkedList<>();
+    ArrayList<Movie> movies = new ArrayList<>();
+    private static MovieDataBase instance = null;
+
+    public static MovieDataBase getInstance() {
+        return instance;
+    }
+
+    public static MovieDataBase getInstance(ArrayList<MovieInput> movieInputs) {
+        if (instance == null) {
+            instance = new MovieDataBase(movieInputs);
+        }
+        return instance;
+    }
 
     public MovieDataBase(ArrayList<MovieInput> moviesInput) {
         for (int i = 0; i < moviesInput.size(); i++) {
@@ -44,6 +60,16 @@ public class MovieDataBase {
 ////        }
     }
 
+    public Movie find(String name) {
+        for (int i = 0; i < this.movies.size(); i++) {
+            Movie movie = this.movies.get(i);
+            if (movie.getName().equals(name)) {
+                return movie;
+            }
+        }
+        return null;
+    }
+
     public  void filter(ActionInput actionInput) {
         Filter filter = actionInput.getFilters();
 
@@ -68,11 +94,11 @@ public class MovieDataBase {
     public MovieDataBase() {
     }
 
-    public LinkedList<Movie> getMovies() {
+    public ArrayList<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(LinkedList<Movie> movies) {
+    public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
     }
 

@@ -13,10 +13,13 @@ public class UserDataBase {
     HashMap<String, User> users = new HashMap<>();
 
     public static UserDataBase getInstance() {
+        return instance;
+    }
+
+    public static UserDataBase getInstance(ArrayList<UserInput> userInputs) {
         if (instance == null) {
-            ArrayList<UserInput> userInputs = Input.getInstance().getUsers();
-            instance = new UserDataBase(Input.getInstance().getUsers()) {
-            };
+            instance = new UserDataBase(userInputs);
+            System.out.println(userInputs);
         }
         return instance;
     }
