@@ -11,7 +11,6 @@ public class User {
     Credentials credentials;
     int tokensCount;
     int numFreePremiumMovies;
-    //    MovieDataBase purchasedMovies;
     ArrayList<Movie> purchasedMovies = new ArrayList<>();
     ArrayList<Movie> watchedMovies = new ArrayList<>();
     ArrayList<Movie> likedMovies = new ArrayList<>();

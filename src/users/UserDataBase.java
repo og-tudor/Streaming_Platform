@@ -16,6 +16,10 @@ public class UserDataBase {
         return instance;
     }
 
+    public static void clearInstance() {
+        instance = null;
+    }
+
     public static UserDataBase getInstance(ArrayList<UserInput> userInputs) {
         if (instance == null) {
             instance = new UserDataBase(userInputs);
@@ -36,7 +40,7 @@ public class UserDataBase {
     }
 
     public User findUser(Credentials credentials) {
-        User user = users.get(credentials.getName());
+        User user = instance.users.get(credentials.getName());
         return user;
     }
     public void insertUser(Credentials credentials) {

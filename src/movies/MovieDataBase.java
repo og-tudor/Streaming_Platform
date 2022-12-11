@@ -17,6 +17,9 @@ public class MovieDataBase {
     ArrayList<Movie> movies = new ArrayList<>();
     private static MovieDataBase instance = null;
 
+    public static void clearInstance() {
+        instance = null;
+    }
     public static MovieDataBase getInstance() {
         return instance;
     }

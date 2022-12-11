@@ -23,10 +23,11 @@ public class Main {
 //        Input data2 = Input.getInstance();
         ArrayNode output = objectMapper.createArrayNode();
 
-
         ArrayList<ActionInput> actions = inputData.getActions();
         Page currentPage = HomeUnauth.getInstance();
         User currentUser = null;
+        MovieDataBase.clearInstance();
+        UserDataBase.clearInstance();
         MovieDataBase allMovies = MovieDataBase.getInstance(inputData.getMovies());
         MovieDataBase currentMovieList = new MovieDataBase();
         UserDataBase userDataBase = UserDataBase.getInstance(inputData.getUsers());
@@ -135,17 +136,27 @@ public class Main {
                             break;
 
                         case "buy tokens":
+                            // Verific daca e details
                             if (!Upgrade.getInstance().equals(currentPage)) {
                                 System.out.println("not on UpgradesPage");
                                 printOut = true;
                                 printError = true;
                                 break;
                             }
+                            System.out.println("countSTRING = " + action.getCount());
+                            System.out.println("currentBalanceSTRING = " + currentUser.getCredentials().getBalance());
+                            System.out.println(currentUser);
+
                             int currentUserBalance = Integer.parseInt(currentUser.getCredentials().getBalance());
                             int count = Integer.parseInt(action.getCount());
                             if (count <= currentUserBalance) {
                                 currentUser.setTokensCount(currentUser.getTokensCount() + count);
-                                String newBalance = Integer.toString(currentUserBalance - count);
+                                int newBalanceInt = currentUserBalance - count;
+
+                                System.out.println("count = " + count);
+                                System.out.println("currentBalance = " + currentUserBalance);
+                                System.out.println("new balance = " + newBalanceInt);
+                                String newBalance = Integer.toString(newBalanceInt);
                                 currentUser.getCredentials().setBalance(newBalance);
                                 System.out.println("tokens bought");
                             } else {
