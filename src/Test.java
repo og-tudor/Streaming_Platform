@@ -145,7 +145,7 @@ public final class Test {
         }
 
         // RUN A SINGLE TEST
-//        File testFile = new File("checker/resources/in/basic_6.json");
+//        File testFile = new File("checker/resources/in/basic_7.json");
 //        String testFileName = testFile.getName();
 //
 //        preTestCleanUp();

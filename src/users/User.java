@@ -4,6 +4,9 @@ import Input.Credentials;
 import movies.Movie;
 import movies.MovieDataBase;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -67,6 +70,7 @@ public class User {
             this.purchasedMovies.add(movieInDataBase);
             this.tokensCount -= 2;
         } else {
+            System.out.println("can't puchase movie");
             return true;
         }
         System.out.println("movie purchased");
@@ -104,7 +108,13 @@ public class User {
         if (this.watchedMovies.contains(movie)) {
 //            movie.setNumLikes(movie.getNumLikes() + 1);
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
-            movieInDataBase.setRating(movieInDataBase.getRating() + rate);
+//            setAmount(new BigDecimal(amount).setScale(2, BigDecimal.ROUND_HALF_UP));
+//            movieInDataBase.setRating(movieInDataBase.getRating() + rate);
+            double newRate = movieInDataBase.getRating() + rate;
+//            BigDecimal bd = new BigDecimal(newRate).setScale(2, RoundingMode.HALF_UP);
+            movieInDataBase.setRating(newRate);
+
+            movieInDataBase.setNumRatings(movieInDataBase.getNumRatings() + 1);
             this.ratedMovies.add(movieInDataBase);
             System.out.println("movie rated");
         } else {

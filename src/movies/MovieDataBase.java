@@ -57,11 +57,23 @@ public class MovieDataBase {
         if (user != null) {
             MovieDataBase movieDataBase = MovieDataBase.getInstance();
             for (int i = 0; i < movieDataBase.getMovies().size(); i++) {
-                if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
-//                    Movie movie = new Movie(movieDataBase.getMovies().get(i));
-                    Movie movie = movieDataBase.getMovies().get(i);
-                    movies.add(movie);
+                Movie movie = movieDataBase.getMovies().get(i);
+                boolean contains = false;
+                for (int j = 0; j < movie.getCountriesBanned().size(); j++) {
+                    if (movie.getCountriesBanned().get(j).equals(user.getCredentials().getCountry())) {
+                        contains = true;
+                    }
                 }
+                if (!contains) {
+                    Movie movieIn = movieDataBase.getMovies().get(i);
+                    movies.add(movieIn);
+                }
+
+//                if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
+////                    Movie movie = new Movie(movieDataBase.getMovies().get(i));
+//                    Movie movie = movieDataBase.getMovies().get(i);
+//                    movies.add(movie);
+//                }
             }
         } else {
             this.movies.clear();
@@ -71,7 +83,7 @@ public class MovieDataBase {
 
 
     public void search(String startWith) {
-        this.movies.removeIf(x -> !(x.getName().contains(startWith)));
+        this.movies.removeIf(x -> !(x.getName().startsWith(startWith)));
 //        for (int i = 0; i < this.movies.size(); i++) {
 ////            String movieName = this.movies.get(i).getName();
 ////            if (!movieName.contains(startWith)) {
@@ -101,11 +113,100 @@ public class MovieDataBase {
 //            }
 //        }
 
+        // Decreasing && Decreasing
+        Comparator<Movie> movieComparator1 = new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                // comparing duration (desc)
+                if (o1.getDuration() == o2.getDuration()) {
+                    // comparing rating (desc)
+                    return Double.compare(o1.getRating(), o2.getRating());
+                } else if (o1.getDuration() < o2.getDuration()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        };
+
+        // Increasing && Decreasing
+        Comparator<Movie> movieComparator2 = new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                // comparing duration (inc)
+                if (o1.getDuration() == o2.getDuration()) {
+                    // comparing rating (desc)
+                    return Double.compare(o1.getRating(), o2.getRating());
+                } else if (o1.getDuration() < o2.getDuration()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        };
+
+        // Decreasing && Increasing
+        Comparator<Movie> movieComparator3 = new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                // comparing duration (desc)
+                if (o1.getDuration() == o2.getDuration()) {
+                    // comparing rating (inc)
+                    return Double.compare(o2.getRating(), o1.getRating());
+                } else if (o1.getDuration() < o2.getDuration()) {
+                    return -1;
+                } else {
+                    return 1;
+                }
+            }
+        };
+
+        // Increasing && Increasing
+        Comparator<Movie> movieComparator4 = new Comparator<Movie>() {
+            @Override
+            public int compare(Movie o1, Movie o2) {
+                // comparing duration (inc)
+                if (o1.getDuration() == o2.getDuration()) {
+                    // comparing rating (inc)
+                    return Double.compare(o2.getRating(), o1.getRating());
+                } else if (o1.getDuration() < o2.getDuration()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        };
+
         // Sort
         Sort sort = filter.getSort();
-        if (sort.getRating().equals("decreasing") && sort.getDuration().equals("decreasing")) {
-            this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration).thenComparing(Movie::getName));
-//            Collections.reverse(movies);
+        String ratingOrder = sort.getRating();
+        String durationOrder = sort.getDuration();
+        if (durationOrder == null) {
+            if (ratingOrder.equals("increasing")) {
+                this.movies.sort((m1, m2) -> Double.compare(m1.getRating(), m2.getRating()));
+            } else {
+                this.movies.sort((m1, m2) -> Double.compare(m2.getRating(), m1.getRating()));
+            }
+            return;
+        } else if (ratingOrder == null) {
+            if (durationOrder.equals("increasing")) {
+                this.movies.sort((m1, m2) -> Double.compare(m1.getDuration(), m2.getDuration()));
+            } else {
+                this.movies.sort((m1, m2) -> Double.compare(m2.getDuration(), m1.getDuration()));
+            }
+            return;
+        }
+
+        if (ratingOrder.equals("decreasing") && durationOrder.equals("decreasing")) {
+//            this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration).thenComparing(Movie::getName));
+            this.movies.sort(movieComparator1);
+        } else if (ratingOrder.equals("increasing") && durationOrder.equals("decreasing")) {
+//            this.movies.sort(Comparator.comparingDouble(Movie::getRating).thenComparingInt(Movie::getDuration).thenComparing(Movie::getName));
+            this.movies.sort(movieComparator2);
+        } else if (ratingOrder.equals("decreasing") && durationOrder.equals("increasing")) {
+            this.movies.sort(movieComparator3);
+        } else if (ratingOrder.equals("increasing") && durationOrder.equals("increasing")) {
+            this.movies.sort(movieComparator4);
         }
     }
     public void insertMovie(Movie movie) {

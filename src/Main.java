@@ -194,18 +194,24 @@ public class Main {
                             }
                             break;
                         case "purchase":
+                            printOut = true;
+                            printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
                                 System.out.println("not on DetailsPage");
                                 printOut = true;
                                 printError = true;
                                 break;
                             }
+                            System.out.println("currentMOVIELIST = " + currentMovieList.getMovies());
                             if (!currentMovieList.getMovies().isEmpty()) {
                                 printError = currentUser.purchaseMovie(currentMovieList.getMovies().get(0));
+                                System.out.println("printError = " + printError);
                                 printOut = true;
                             }
                             break;
                         case "watch":
+                            printOut = true;
+                            printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
                                 System.out.println("not on DetailsPage");
                                 printOut = true;
@@ -218,6 +224,8 @@ public class Main {
                             }
                             break;
                         case "like":
+                            printOut = true;
+                            printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
                                 System.out.println("not on DetailsPage");
                                 printOut = true;
@@ -230,6 +238,8 @@ public class Main {
                             }
                             break;
                         case "rate":
+                            printOut = true;
+                            printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
                                 System.out.println("not on DetailsPage");
                                 printOut = true;
