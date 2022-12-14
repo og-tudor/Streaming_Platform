@@ -43,9 +43,12 @@ public class Main {
         MovieDataBase currentMovieList = new MovieDataBase();
         UserDataBase userDataBase = UserDataBase.getInstance(inputData.getUsers());
 
+        MovieDataBase seeDetailsMovie = null;
+        boolean filter = false;
         for (int i = 0; i < actions.size(); i++) {
             boolean printOut = false;
             boolean printError = false;
+
             ObjectNode node = objectMapper.createObjectNode();
             ActionInput action = actions.get(i);
             String switchPage = action.getPage();
@@ -60,21 +63,26 @@ public class Main {
                             currentUser = null;
                         } else if (Movies.getInstance().equals(currentPage)) {
                             printOut = true;
+                            filter = false;
 //                            currentMovieList = new MovieDataBase(allMovies, currentUser);
                             currentMovieList.populate(currentUser);
                         } else if (Upgrade.getInstance().equals(currentPage)) {
 //                            printOut = true;
 //                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+                            filter = false;
                             currentMovieList.populate(currentUser);
                         } else if (Details.getInstance().equals(currentPage)) {
 //                            currentMovieList = new MovieDataBase(allMovies, currentUser);
 //                            if (!currentMovieList.getMovies().isEmpty()) {
 //                            }
-                            currentMovieList.populate(currentUser);
-                            currentMovieList.search(action.getMovie());
-//                            System.out.println(currentMovieList);
+                            if (currentMovieList.getMovies().isEmpty() && !filter) {
+                                currentMovieList.populate(currentUser);
+                            }
+
+                            seeDetailsMovie = currentMovieList;
+                            seeDetailsMovie.search(action.getMovie());
                             printOut = true;
-                            if (currentMovieList.getMovies().isEmpty()) {
+                            if (seeDetailsMovie.getMovies().isEmpty()) {
                                 printError = true;
                                 System.out.println("There is no such movie");
                             }
@@ -133,21 +141,18 @@ public class Main {
                             break;
                         case "filter" :
                             printOut = true;
-                            if (!Movies.getInstance().equals(currentPage)) {
+                            if (Movies.getInstance().equals(currentPage) || Details.getInstance().equals(currentPage)) {
+                                System.out.println("filter succesful");
+                                currentMovieList.populate(currentUser);
+                                System.out.println(currentMovieList);
+                                currentMovieList.filter(action);
+                                filter = true;
+                            } else {
                                 System.out.println("not on MoviesPage");
                                 printError = true;
-                                break;
                             }
-                            System.out.println("filter succesful");
-//                            currentMovieList = new MovieDataBase(allMovies, currentUser);
-                            currentMovieList.populate(currentUser);
-                            System.out.println(currentMovieList);
-                            currentMovieList.filter(action);
-//                            System.out.println("after filter " + currentMovieList);
-//                            System.out.println("printError " + printError);
 
                             break;
-
                         case "buy tokens":
                             // Verific daca e details
                             if (!Upgrade.getInstance().equals(currentPage)) {
@@ -208,8 +213,8 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            if (!currentMovieList.getMovies().isEmpty()) {
-                                printError = currentUser.purchaseMovie(currentMovieList.getMovies().get(0));
+                            if (!seeDetailsMovie.getMovies().isEmpty()) {
+                                printError = currentUser.purchaseMovie(seeDetailsMovie.getMovies().get(0));
                                 printOut = true;
                             }
                             break;
@@ -222,8 +227,8 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            if (!currentMovieList.getMovies().isEmpty()) {
-                                printError = currentUser.watchMovie(currentMovieList.getMovies().get(0));
+                            if (!seeDetailsMovie.getMovies().isEmpty()) {
+                                printError = currentUser.watchMovie(seeDetailsMovie.getMovies().get(0));
                                 printOut = true;
                             }
                             break;
@@ -236,8 +241,8 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            if (!currentMovieList.getMovies().isEmpty()) {
-                                printError = currentUser.likeMovie(currentMovieList.getMovies().get(0));
+                            if (!seeDetailsMovie.getMovies().isEmpty()) {
+                                printError = currentUser.likeMovie(seeDetailsMovie.getMovies().get(0));
                                 printOut = true;
                             }
                             break;
@@ -250,10 +255,10 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            if (!currentMovieList.getMovies().isEmpty()) {
+                            if (!seeDetailsMovie.getMovies().isEmpty()) {
 
                                 Double rate = action.getRate();
-                                printError = currentUser.rateMovie(currentMovieList.getMovies().get(0), rate);
+                                printError = currentUser.rateMovie(seeDetailsMovie.getMovies().get(0), rate);
                                 printOut = true;
                             }
                             break;

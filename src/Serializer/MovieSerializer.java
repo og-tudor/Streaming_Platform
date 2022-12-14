@@ -2,12 +2,15 @@ package Serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.node.POJONode;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import movies.Movie;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Formatter;
 
 public class MovieSerializer extends StdSerializer<Movie> {
     public MovieSerializer() {
@@ -18,6 +21,10 @@ public class MovieSerializer extends StdSerializer<Movie> {
         super(t);
     }
 
+    public static Double roundAvoid(double value, int places) {
+        double scale = Math.pow(10, places);
+        return Math.round(value * scale) / scale;
+    }
     @Override
     public void serialize(Movie value, JsonGenerator jgen, SerializerProvider provider)
             throws IOException {
@@ -43,8 +50,23 @@ public class MovieSerializer extends StdSerializer<Movie> {
         }
         jgen.writeEndArray();
         jgen.writeNumberField("numLikes", value.getNumLikes());
-        BigDecimal bd = new BigDecimal(value.getRating()).setScale(2, RoundingMode.FLOOR);
-        jgen.writeNumberField("rating", bd.doubleValue());
+//        Double newValue = value.getRating() + 0.0001;
+//        BigDecimal bd = new BigDecimal(newValue).setScale(2, RoundingMode.FLOOR);
+        jgen.writeNumberField("rating", value.getRating());
+//        DecimalFormat df = new DecimalFormat("###.###");
+//        jgen.writeNumberField("rating", Double.parseDouble(df.format(newValue)));
+//        jgen.writeNumberField("rating", roundAvoid(1.0045, 2).floatValue());
+//        jgen.writePOJO("rating", value.getRating());
+//        POJONode pojoNode = new POJONode(value.getRating());
+//        jgen.writePOJO(pojoNode);
+//        jgen.writeNumberField("rating", rou);
+//        Formatter formatter = new Formatter();
+//        formatter.format("%.2f", value.getRating());
+
+//        jgen.writeNumberField("rating", value.getRating());
+//        jgen.writeNumber
+//        writer.WriteRawValue($"{value:0.00}");
+//        jgen.writeRawValue($"{rating:0.00}");
         jgen.writeNumberField("numRatings", value.getNumRatings());
         jgen.writeEndObject();
     }

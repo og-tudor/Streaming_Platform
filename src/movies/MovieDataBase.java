@@ -116,9 +116,11 @@ public class MovieDataBase {
         if (filter.getContains() != null) {
             ArrayList<String> genreFilter = filter.getContains().getGenre();
             for (int i = 0; i < genreFilter.size(); i++) {
-                movies.removeIf(x -> !(x.getActors().containsAll(genreFilter)));
+                movies.removeIf(x -> !(x.getGenres().containsAll(genreFilter)));
             }
         }
+
+        System.out.println("sorted movies" + movies);
 
         // Decreasing && Decreasing
         Comparator<Movie> movieComparator1 = new Comparator<Movie>() {
@@ -187,6 +189,7 @@ public class MovieDataBase {
         // Sort
         Sort sort = filter.getSort();
         if (sort == null) {
+            System.out.println("RETURN SORT");
             return;
         }
         String ratingOrder = sort.getRating();
