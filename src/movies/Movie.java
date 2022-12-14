@@ -1,5 +1,8 @@
 package movies;
 
+import Serializer.MovieSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.NumberSerializers;
 import pageStructure.Movies;
 
 import java.math.BigDecimal;
@@ -7,6 +10,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+@JsonSerialize(using = MovieSerializer.class)
 public class Movie {
 //            "name": "Lord, Save Us from Your Followers",
 //            "year": 1998,

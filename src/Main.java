@@ -1,6 +1,7 @@
 import Input.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import movies.Movie;
@@ -22,6 +23,16 @@ public class Main {
         inputData = objectMapper.readValue(new File(args[0]), Input.class);
 //        Input data2 = Input.getInstance();
         ArrayNode output = objectMapper.createArrayNode();
+        ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
+
+
+
+//        SimpleModule module = new SimpleModule();
+//        module.addSerializer(Movie.class, new DoubleSerializer());
+//        objectMapper.registerModule(module);
+//        String serialized = objectMapper.writeValueAsString(Movie);
+
+
 
         ArrayList<ActionInput> actions = inputData.getActions();
         Page currentPage = HomeUnauth.getInstance();
@@ -260,6 +271,7 @@ public class Main {
                 currentMovieListCopy.getMovies().clear();
                 node.putPOJO("error", "Error");
                 node.putPOJO("currentMoviesList", currentMovieListCopy.getMovies());
+//                String serialized = new ObjectMapper().writeValueAsString(currentMovieList);
                 node.putPOJO("currentUser", null);
                 output.add(node);
             } else if (printOut) {
@@ -270,7 +282,7 @@ public class Main {
             }
         }
 
-        ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
+
 
         // TODO delete out file
         char[] testNumber = args[0].toCharArray();
