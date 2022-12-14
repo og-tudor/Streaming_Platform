@@ -104,14 +104,14 @@ public class User {
         return false;
     }
 
-    public boolean rateMovie(Movie movie, double rate) {
+    public boolean rateMovie(Movie movie, Double rate) {
+        if (rate > 5 || rate < 0) {
+            System.out.println("Rating not in[0-5]");
+            return true;
+        }
         if (this.watchedMovies.contains(movie)) {
-//            movie.setNumLikes(movie.getNumLikes() + 1);
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
-//            setAmount(new BigDecimal(amount).setScale(2, BigDecimal.ROUND_HALF_UP));
-//            movieInDataBase.setRating(movieInDataBase.getRating() + rate);
-            double newRate = movieInDataBase.getRating() + rate;
-//            BigDecimal bd = new BigDecimal(newRate).setScale(2, RoundingMode.HALF_UP);
+            Double newRate = movieInDataBase.getRating() + rate;
             movieInDataBase.setRating(newRate);
 
             movieInDataBase.setNumRatings(movieInDataBase.getNumRatings() + 1);

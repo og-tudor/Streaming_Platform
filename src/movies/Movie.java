@@ -2,6 +2,8 @@ package movies;
 
 import pageStructure.Movies;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -36,10 +38,10 @@ public class Movie {
     private ArrayList<String> actors;
     private ArrayList<String> countriesBanned;
     private int numLikes;
-    private double rating;
+    private Double rating;
     private int numRatings;
 
-    public Movie(String name, int year, int duration, ArrayList<String> genres, ArrayList<String> actors, ArrayList<String> countriesBanned, int numLikes, double rating, int numRatings) {
+    public Movie(String name, int year, int duration, ArrayList<String> genres, ArrayList<String> actors, ArrayList<String> countriesBanned, int numLikes, Double rating, int numRatings) {
         this.name = name;
         this.year = year;
         this.duration = duration;
@@ -111,12 +113,16 @@ public class Movie {
         this.numLikes = numLikes;
     }
 
-    public double getRating() {
-        return rating;
+    public Double getRating() {
+//        this.rating = rating + 0.0001;
+        BigDecimal bigDecimal = new BigDecimal(rating).setScale(2, RoundingMode.FLOOR);
+        System.out.println("BigDecimal  = " + bigDecimal.doubleValue());
+        return bigDecimal.doubleValue();
     }
 
-    public void setRating(double rating) {
-        this.rating = rating;
+    public void setRating(Double rating) {
+        BigDecimal bigDecimal = new BigDecimal(rating).setScale(2, RoundingMode.FLOOR);
+        this.rating = bigDecimal.doubleValue();
     }
 
     public int getNumRatings() {

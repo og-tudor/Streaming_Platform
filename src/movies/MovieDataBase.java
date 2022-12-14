@@ -34,7 +34,7 @@ public class MovieDataBase {
     public MovieDataBase(ArrayList<MovieInput> moviesInput) {
         for (int i = 0; i < moviesInput.size(); i++) {
             MovieInput movieInput = moviesInput.get(i);
-            Movie movie = new Movie(movieInput.getName(), movieInput.getYear(), movieInput.getDuration(), movieInput.getGenres(), movieInput.getActors(), movieInput.getCountriesBanned(), 0, 0 ,0 );
+            Movie movie = new Movie(movieInput.getName(), movieInput.getYear(), movieInput.getDuration(), movieInput.getGenres(), movieInput.getActors(), movieInput.getCountriesBanned(), 0, 0.00,0 );
             movies.add(movie);
         }
     }
@@ -106,12 +106,19 @@ public class MovieDataBase {
         Filter filter = actionInput.getFilters();
 
         // Filter movies by actor
-//        if (filter.getContains() != null) {
-//            ArrayList<String> actorFilter = filter.getContains().getActors();
-//            for (int i = 0; i < actorFilter.size(); i++) {
-//                movies.removeIf(x -> !(x.getActors().containsAll(actorFilter)));
-//            }
-//        }
+        if (filter.getContains() != null) {
+            ArrayList<String> actorFilter = filter.getContains().getActors();
+            for (int i = 0; i < actorFilter.size(); i++) {
+                movies.removeIf(x -> !(x.getActors().containsAll(actorFilter)));
+            }
+        }
+        // Filter genre
+        if (filter.getContains() != null) {
+            ArrayList<String> genreFilter = filter.getContains().getGenre();
+            for (int i = 0; i < genreFilter.size(); i++) {
+                movies.removeIf(x -> !(x.getActors().containsAll(genreFilter)));
+            }
+        }
 
         // Decreasing && Decreasing
         Comparator<Movie> movieComparator1 = new Comparator<Movie>() {
@@ -179,6 +186,9 @@ public class MovieDataBase {
 
         // Sort
         Sort sort = filter.getSort();
+        if (sort == null) {
+            return;
+        }
         String ratingOrder = sort.getRating();
         String durationOrder = sort.getDuration();
         if (durationOrder == null) {

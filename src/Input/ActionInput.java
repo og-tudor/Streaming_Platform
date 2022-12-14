@@ -1,5 +1,7 @@
 package Input;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 public class ActionInput {
@@ -17,7 +19,7 @@ public class ActionInput {
     private Filter filters;
     private String movie;
     private String count;
-    private int rate;
+    private Double rate;
 
 
 //    public Input.Action(String type, String page, String feature) {
@@ -69,11 +71,14 @@ public class ActionInput {
         this.startsWith = startsWith;
     }
 
-    public int getRate() {
-        return rate;
+
+    public Double getRate() {
+        BigDecimal bigDecimal = new BigDecimal(rate).setScale(2, RoundingMode.FLOOR);
+        return bigDecimal.doubleValue();
+//        return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 

@@ -57,9 +57,11 @@ public class Main {
                             currentMovieList.populate(currentUser);
                         } else if (Details.getInstance().equals(currentPage)) {
 //                            currentMovieList = new MovieDataBase(allMovies, currentUser);
+//                            if (!currentMovieList.getMovies().isEmpty()) {
+//                            }
                             currentMovieList.populate(currentUser);
                             currentMovieList.search(action.getMovie());
-                            System.out.println(currentMovieList);
+//                            System.out.println(currentMovieList);
                             printOut = true;
                             if (currentMovieList.getMovies().isEmpty()) {
                                 printError = true;
@@ -130,8 +132,8 @@ public class Main {
                             currentMovieList.populate(currentUser);
                             System.out.println(currentMovieList);
                             currentMovieList.filter(action);
-                            System.out.println("after filter " + currentMovieList);
-                            System.out.println("printError " + printError);
+//                            System.out.println("after filter " + currentMovieList);
+//                            System.out.println("printError " + printError);
 
                             break;
 
@@ -143,19 +145,12 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            System.out.println("countSTRING = " + action.getCount());
-                            System.out.println("currentBalanceSTRING = " + currentUser.getCredentials().getBalance());
-                            System.out.println(currentUser);
-
                             int currentUserBalance = Integer.parseInt(currentUser.getCredentials().getBalance());
                             int count = Integer.parseInt(action.getCount());
                             if (count <= currentUserBalance) {
                                 currentUser.setTokensCount(currentUser.getTokensCount() + count);
                                 int newBalanceInt = currentUserBalance - count;
 
-                                System.out.println("count = " + count);
-                                System.out.println("currentBalance = " + currentUserBalance);
-                                System.out.println("new balance = " + newBalanceInt);
                                 String newBalance = Integer.toString(newBalanceInt);
                                 currentUser.getCredentials().setBalance(newBalance);
                                 System.out.println("tokens bought");
@@ -202,10 +197,8 @@ public class Main {
                                 printError = true;
                                 break;
                             }
-                            System.out.println("currentMOVIELIST = " + currentMovieList.getMovies());
                             if (!currentMovieList.getMovies().isEmpty()) {
                                 printError = currentUser.purchaseMovie(currentMovieList.getMovies().get(0));
-                                System.out.println("printError = " + printError);
                                 printOut = true;
                             }
                             break;
@@ -247,7 +240,8 @@ public class Main {
                                 break;
                             }
                             if (!currentMovieList.getMovies().isEmpty()) {
-                                double rate = action.getRate();
+
+                                Double rate = action.getRate();
                                 printError = currentUser.rateMovie(currentMovieList.getMovies().get(0), rate);
                                 printOut = true;
                             }
