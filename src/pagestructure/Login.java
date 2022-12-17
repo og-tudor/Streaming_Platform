@@ -1,8 +1,8 @@
-package pageStructure;
+package pagestructure;
 
 public class Login extends Page {
     private static Login instance = null;
-
+    /** Populates the Login page links and returns the instance */
     public static Login getInstance() {
         if (instance == null) {
             instance = new Login() {

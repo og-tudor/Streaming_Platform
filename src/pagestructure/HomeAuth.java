@@ -1,9 +1,8 @@
-package pageStructure;
-import java.util.Map;
+package pagestructure;
 
-public class HomeAuth extends Page{
+public class HomeAuth extends Page {
     private static HomeAuth instance = null;
-
+    /** Populates the Home Authenticated page links and returns the instance */
     public static HomeAuth getInstance() {
         if (instance == null) {
             instance = new HomeAuth() {

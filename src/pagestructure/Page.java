@@ -1,11 +1,11 @@
-package pageStructure;
+package pagestructure;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Page {
     private static Page instance = null;
-
+    /** Returns the instance of Singleton */
     public static Page getInstance() {
         if (instance == null) {
             instance = new Page() {
@@ -13,27 +13,21 @@ public abstract class Page {
         }
         return instance;
     }
-    String name;
     protected Map<String, Page> links = new HashMap<>();
-
+    /** Getter */
     public Map<String, Page> getLinks() {
         return links;
     }
-
-    public void setLinks(Map<String, Page> links) {
+    /** Setter */
+    public void setLinks(final Map<String, Page> links) {
         this.links = links;
     }
-
-    public void insertLink(String pageName, Page page) {
+    /** Inserts a page link into the links array */
+    public void insertLink(final String pageName, final Page page) {
         links.put(pageName, page);
     }
-
-    public void execute() {
-        
-    }
+    /** Prints all links in a page */
     public void printLinks() {
         System.out.println(links);
     }
-
-
 }

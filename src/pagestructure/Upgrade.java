@@ -1,8 +1,8 @@
-package pageStructure;
+package pagestructure;
 
-public class Upgrade extends Page{
+public class Upgrade extends Page {
     private static Upgrade instance = null;
-
+    /** Populates the Details page links and returns the instance */
     public static Upgrade getInstance() {
         if (instance == null) {
             instance = new Upgrade() {

@@ -1,14 +1,12 @@
 package movies;
 
-import Serializer.MovieSerializer;
+import serializer.MovieSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.NumberSerializers;
-import pageStructure.Movies;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 @JsonSerialize(using = MovieSerializer.class)
 public class Movie {
@@ -24,7 +22,10 @@ public class Movie {
 
     private Double totalRating = 0.00;
 
-    public Movie(String name, int year, int duration, ArrayList<String> genres, ArrayList<String> actors, ArrayList<String> countriesBanned, int numLikes, Double rating, int numRatings) {
+    public Movie(final String name, final int year, final int duration,
+                 final ArrayList<String> genres, final ArrayList<String> actors,
+                 final ArrayList<String> countriesBanned, final int numLikes,
+                 final Double rating, final int numRatings) {
         this.name = name;
         this.year = year;
         this.duration = duration;
@@ -36,104 +37,120 @@ public class Movie {
         this.numRatings = numRatings;
     }
 
-    public Movie(Movie movie) {
-        this(movie.name, movie.year, movie.duration, movie.genres, movie.actors, movie.countriesBanned, movie.numLikes, movie.rating, movie.numRatings);
+    public Movie(final Movie movie) {
+        this(movie.name, movie.year, movie.duration, movie.genres, movie.actors,
+             movie.countriesBanned, movie.numLikes, movie.rating, movie.numRatings);
     }
-
+    /** Getter */
     public String getName() {
         return name;
     }
-
-    public void setName(String name) {
+    /** Setter */
+    public void setName(final String name) {
         this.name = name;
     }
-
+    /** Getter */
     public int getYear() {
         return year;
     }
-
-    public void setYear(int year) {
+    /** Setter */
+    public void setYear(final int year) {
         this.year = year;
     }
-
+    /** Getter */
     public int getDuration() {
         return duration;
     }
-
-    public void setDuration(int duration) {
+    /** Setter */
+    public void setDuration(final int duration) {
         this.duration = duration;
     }
-
+    /** Getter */
     public ArrayList<String> getGenres() {
         return genres;
     }
-
-    public void setGenres(ArrayList<String> genres) {
+    /** Setter */
+    public void setGenres(final ArrayList<String> genres) {
         this.genres = genres;
     }
-
+    /** Getter */
     public ArrayList<String> getActors() {
         return actors;
     }
-
-    public void setActors(ArrayList<String> actors) {
+    /** Setter */
+    public void setActors(final ArrayList<String> actors) {
         this.actors = actors;
     }
-
+    /** Getter */
     public ArrayList<String> getCountriesBanned() {
         return countriesBanned;
     }
-
-    public void setCountriesBanned(ArrayList<String> countriesBanned) {
+    /** Setter */
+    public void setCountriesBanned(final ArrayList<String> countriesBanned) {
         this.countriesBanned = countriesBanned;
     }
-
+    /** Getter */
     public int getNumLikes() {
         return numLikes;
     }
-
-    public void setNumLikes(int numLikes) {
+    /** Setter */
+    public void setNumLikes(final int numLikes) {
         this.numLikes = numLikes;
     }
-
+    /** Getter */
+//    @JsonIgnore
     public Double getRating() {
 //        this.rating = rating + 0.0001;
         BigDecimal bigDecimal = new BigDecimal(rating).setScale(2, RoundingMode.FLOOR);
         return bigDecimal.doubleValue();
     }
-
-    public void setRating(Double rating) {
+    /** Setter */
+    public void setRating(final Double rating) {
         BigDecimal bigDecimal = new BigDecimal(rating).setScale(2, RoundingMode.FLOOR);
         this.rating = bigDecimal.doubleValue();
     }
 
+    /** Getter */
     public int getNumRatings() {
         return numRatings;
     }
-
-    public void setNumRatings(int numRatings) {
+    /** Setter */
+    public void setNumRatings(final int numRatings) {
         this.numRatings = numRatings;
     }
+    /** Getter */
+    @JsonIgnore
     public Double getTotalRating() {
         return totalRating;
     }
-
-    public void setTotalRating(Double totalRating) {
+    /** Setter */
+    @JsonIgnore
+    public void setTotalRating(final Double totalRating) {
         this.totalRating = totalRating;
     }
-
+    /** Prints the movie and it's details */
     @Override
     public String toString() {
-        return "Movie{" +
-                "name='" + name + '\'' +
-                ", year=" + year +
-                ", duration=" + duration +
-                ", genres=" + genres +
-                ", actors=" + actors +
-                ", countriesBanned=" + countriesBanned +
-                ", numLikes=" + numLikes +
-                ", rating=" + rating +
-                ", numRatings=" + numRatings +
+        return "Movie{"
+                +
+                "name='" + name + '\''
+                +
+                ", year=" + year
+                +
+                ", duration=" + duration
+                +
+                ", genres=" + genres
+                +
+                ", actors=" + actors
+                +
+                ", countriesBanned=" + countriesBanned
+                +
+                ", numLikes=" + numLikes
+                +
+                ", rating=" + rating
+                +
+                ", numRatings=" + numRatings
+                +
                 '}';
     }
 }

@@ -1,8 +1,8 @@
-package pageStructure;
+package pagestructure;
 
-public class Movies extends Page{
+public class Movies extends Page {
     private static Movies instance = null;
-
+    /** Populates the Movies page links and returns the instance */
     public static Movies getInstance() {
         if (instance == null) {
             instance = new Movies() {

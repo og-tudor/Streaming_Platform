@@ -1,8 +1,8 @@
-package pageStructure;
+package pagestructure;
 
-public class Details extends Page{
+public class Details extends Page {
     private static Details instance = null;
-
+    /** Populates the Details page links and returns the instance */
     public static Details getInstance() {
         if (instance == null) {
             instance = new Details() {

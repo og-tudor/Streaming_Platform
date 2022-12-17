@@ -1,25 +1,25 @@
-package Input;
+package input;
 
 public class Sort {
-    String rating;
-    String duration;
+    private String rating;
+    private String duration;
 
     public Sort() {
     }
-
+    /** Getter */
     public String getRating() {
         return rating;
     }
-
-    public void setRating(String rating) {
+    /** Setter */
+    public void setRating(final String rating) {
         this.rating = rating;
     }
-
+    /** Getter */
     public String getDuration() {
         return duration;
     }
-
-    public void setDuration(String duration) {
+    /** Setter */
+    public void setDuration(final String duration) {
         this.duration = duration;
     }
 }

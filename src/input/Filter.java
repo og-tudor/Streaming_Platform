@@ -1,25 +1,25 @@
-package Input;
+package input;
 
 public class Filter {
-    Sort sort;
-    Contains contains;
+    private Sort sort;
+    private Contains contains;
 
     public Filter() {
     }
-
+    /** Getter */
     public Sort getSort() {
         return sort;
     }
-
-    public void setSort(Sort sort) {
+    /** Setter */
+    public void setSort(final Sort sort) {
         this.sort = sort;
     }
-
+    /** Getter */
     public Contains getContains() {
         return contains;
     }
-
-    public void setContains(Contains contains) {
+    /** Setter */
+    public void setContains(final Contains contains) {
         this.contains = contains;
     }
 }

@@ -1,43 +1,33 @@
 package users;
 
-import Input.Credentials;
+import input.Credentials;
 import movies.Movie;
 import movies.MovieDataBase;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class User {
-    Credentials credentials;
-    int tokensCount;
-    int numFreePremiumMovies;
-    ArrayList<Movie> purchasedMovies = new ArrayList<>();
-    ArrayList<Movie> watchedMovies = new ArrayList<>();
-    ArrayList<Movie> likedMovies = new ArrayList<>();
-    ArrayList<Movie> ratedMovies = new ArrayList<>();
+    private Credentials credentials;
+    private int tokensCount;
+    private int numFreePremiumMovies;
+    private ArrayList<Movie> purchasedMovies = new ArrayList<>();
+    private ArrayList<Movie> watchedMovies = new ArrayList<>();
+    private ArrayList<Movie> likedMovies = new ArrayList<>();
+    private ArrayList<Movie> ratedMovies = new ArrayList<>();
+    private final int maxRating = 5;
 
-//    MovieDataBase watchedMovies;
-//    MovieDataBase likedMovies;
-//    MovieDataBase ratedMovies;
-
-    public User(Credentials credentials, int tokensCount, int numFreePremiumMovies) {
+    /** Input Constructor */
+    public User(final Credentials credentials, final int tokensCount,
+                final int numFreePremiumMovies) {
         this.credentials = credentials;
         this.tokensCount = tokensCount;
         this.numFreePremiumMovies = numFreePremiumMovies;
-//        this.purchasedMovies = new MovieDataBase();
-//        this.watchedMovies = new MovieDataBase();
-//        this.likedMovies = new MovieDataBase();
-//        this.ratedMovies = new MovieDataBase();
     }
-
-    public User(User user) {
+    /** Copy Constructor */
+    public User(final User user) {
         this.credentials = new Credentials(user.getCredentials());
         this.tokensCount = user.tokensCount;
         this.numFreePremiumMovies = user.getNumFreePremiumMovies();
-//        this.watchedMovies.addAll(user.watchedMovies);
         for (int i = 0; i < user.watchedMovies.size(); i++) {
             Movie movie = new Movie(user.watchedMovies.get(i));
             this.watchedMovies.add(movie);
@@ -54,144 +44,138 @@ public class User {
             Movie movie = new Movie(user.ratedMovies.get(i));
             this.ratedMovies.add(movie);
         }
-//        this.purchasedMovies.addAll(user.purchasedMovies);
-//        this.likedMovies.addAll(user.likedMovies);
-//        this.ratedMovies.addAll(user.ratedMovies);
     }
 
     /** Returns true if there was an error when buying the movie */
-    public boolean purchaseMovie(Movie movie) {
-        if (this.numFreePremiumMovies > 0 && this.credentials.getAccountType().equals(Credentials.AccountType.premium)) {
+    public boolean purchaseMovie(final Movie movie) {
+        Credentials.AccountType accountType = this.credentials.getAccountType();
+        if (this.numFreePremiumMovies > 0 && accountType.equals(Credentials.AccountType.premium)) {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             this.purchasedMovies.add(movieInDataBase);
             this.numFreePremiumMovies -= 1;
-        } else if (this.tokensCount >= 2){
+        } else if (this.tokensCount >= 2) {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             this.purchasedMovies.add(movieInDataBase);
             this.tokensCount -= 2;
         } else {
-//            System.out.println("can't puchase movie");
             return true;
         }
-//        System.out.println("movie purchased");
         return false;
     }
 
     /** Returns true if there was an error when watching the movie */
-    public boolean watchMovie(Movie movie) {
+    public boolean watchMovie(final Movie movie) {
         if (this.purchasedMovies.contains(movie)) {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             this.watchedMovies.add(movieInDataBase);
-//            System.out.println("movie watched");
         } else {
-//            System.out.println("movie not puchased, can t be watched");
             return true;
         }
         return false;
     }
-
-    public boolean likeMovie(Movie movie) {
+    /** Returns true if there was an error when liking the movie */
+    public boolean likeMovie(final Movie movie) {
         if (this.watchedMovies.contains(movie)) {
-//            movie.setNumLikes(movie.getNumLikes() + 1);
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             movieInDataBase.setNumLikes(movieInDataBase.getNumLikes() + 1);
             this.likedMovies.add(movieInDataBase);
-//            System.out.println("movie liked");
         } else {
-//            System.out.println("movie not watched, can t be liked");
             return true;
         }
         return false;
     }
-
-    public boolean rateMovie(Movie movie, Double rate) {
-        if (rate > 5 || rate < 0) {
-//            System.out.println("Rating not in[0-5]");
+    /** Returns true if there was an error when rating the movie */
+    public boolean rateMovie(final Movie movie, final Double rate) {
+        if (rate > maxRating || rate < 0) {
             return true;
         }
         if (this.watchedMovies.contains(movie)) {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             movieInDataBase.setNumRatings(movieInDataBase.getNumRatings() + 1);
             movieInDataBase.setTotalRating(movieInDataBase.getTotalRating() + rate);
-            Double newRate = (movieInDataBase.getTotalRating())/movieInDataBase.getNumRatings();
-
+            Double newRate = (movieInDataBase.getTotalRating()) / movieInDataBase.getNumRatings();
             movieInDataBase.setRating(Math.floor(newRate));
-
             this.ratedMovies.add(movieInDataBase);
-//            System.out.println("movie rated");
         } else {
-//            System.out.println("movie not watched, can t be rated");
             return true;
         }
         return false;
     }
-
+    /** Getter */
     public Credentials getCredentials() {
         return credentials;
     }
-
-    public void setCredentials(Credentials credentials) {
+    /** Setter */
+    public void setCredentials(final Credentials credentials) {
         this.credentials = credentials;
     }
-
+    /** Getter */
     public int getTokensCount() {
         return tokensCount;
     }
-
-    public void setTokensCount(int tokensCount) {
+    /** Setter */
+    public void setTokensCount(final int tokensCount) {
         this.tokensCount = tokensCount;
     }
-
+    /** Getter */
     public int getNumFreePremiumMovies() {
         return numFreePremiumMovies;
     }
-
-    public void setNumFreePremiumMovies(int numFreePremiumMovies) {
+    /** Setter */
+    public void setNumFreePremiumMovies(final int numFreePremiumMovies) {
         this.numFreePremiumMovies = numFreePremiumMovies;
     }
-
+    /** Getter */
     public ArrayList<Movie> getPurchasedMovies() {
         return purchasedMovies;
     }
-
-    public void setPurchasedMovies(ArrayList<Movie> purchasedMovies) {
+    /** Setter */
+    public void setPurchasedMovies(final ArrayList<Movie> purchasedMovies) {
         this.purchasedMovies = purchasedMovies;
     }
-
+    /** Getter */
     public ArrayList<Movie> getWatchedMovies() {
         return watchedMovies;
     }
-
-    public void setWatchedMovies(ArrayList<Movie> watchedMovies) {
+    /** Setter */
+    public void setWatchedMovies(final ArrayList<Movie> watchedMovies) {
         this.watchedMovies = watchedMovies;
     }
-
+    /** Getter */
     public ArrayList<Movie> getLikedMovies() {
         return likedMovies;
     }
-
-    public void setLikedMovies(ArrayList<Movie> likedMovies) {
+    /** Setter */
+    public void setLikedMovies(final ArrayList<Movie> likedMovies) {
         this.likedMovies = likedMovies;
     }
-
+    /** Getter */
     public ArrayList<Movie> getRatedMovies() {
         return ratedMovies;
     }
-
-    public void setRatedMovies(ArrayList<Movie> ratedMovies) {
+    /** Setter */
+    public void setRatedMovies(final ArrayList<Movie> ratedMovies) {
         this.ratedMovies = ratedMovies;
     }
-
+    /** Prints the users credentials and data */
     @Override
     public String toString() {
-        return "User{" +
-                "credentials=" + credentials +
-                ", tokensCount=" + tokensCount +
-                ", numFreePremiumMovies=" + numFreePremiumMovies +
-                ", purchasedMovies=" + purchasedMovies +
-                ", watchedMovies=" + watchedMovies +
-                ", likedMovies=" + likedMovies +
-                ", ratedMovies=" + ratedMovies +
+        return "User{"
+                +
+                "credentials=" + credentials
+                +
+                ", tokensCount=" + tokensCount
+                +
+                ", numFreePremiumMovies=" + numFreePremiumMovies
+                +
+                ", purchasedMovies=" + purchasedMovies
+                +
+                ", watchedMovies=" + watchedMovies
+                +
+                ", likedMovies=" + likedMovies
+                +
+                ", ratedMovies=" + ratedMovies
+                +
                 '}';
     }
 }

@@ -1,8 +1,8 @@
-package pageStructure;
+package pagestructure;
 
-public class HomeUnauth extends Page{
+public class HomeUnauth extends Page {
     private static HomeUnauth instance = null;
-
+    /** Populates the Home Unauthenticated page links and returns the instance */
     public static HomeUnauth getInstance() {
         if (instance == null) {
             instance = new HomeUnauth() {

@@ -1,16 +1,9 @@
-package Input;
+package input;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
 public class ActionInput {
-//          "type": "on page",
-//          "page": "login",
-//          "feature": "login",
-//          "credentials": {
-//        "name": "Eduard",
-//        "password": "secret"
     private String type;
     private String page;
     private String feature;
@@ -21,99 +14,99 @@ public class ActionInput {
     private String count;
     private Double rate;
 
-
-//    public Input.Action(String type, String page, String feature) {
-//        this.type = type;
-//        this.page = page;
-//        this.feature = feature;
-//    }
-
     public ActionInput() {
     }
 
+    /** Getter */
     public String getType() {
         return type;
     }
-
-    public void setType(String type) {
+    /** Setter */
+    public void setType(final String type) {
         this.type = type;
     }
-
+    /** Getter */
     public String getPage() {
         return page;
     }
-
-    public void setPage(String page) {
+    /** Setter */
+    public void setPage(final String page) {
         this.page = page;
     }
-
+    /** Getter */
     public String getFeature() {
         return feature;
     }
-
-    public void setFeature(String feature) {
+    /** Setter */
+    public void setFeature(final String feature) {
         this.feature = feature;
     }
-
+    /** Getter */
     public Credentials getCredentials() {
         return credentials;
     }
-
-    public void setCredentials(Credentials credentials) {
+    /** Setter */
+    public void setCredentials(final Credentials credentials) {
         this.credentials = credentials;
     }
-
+    /** Getter */
     public String getStartsWith() {
         return startsWith;
     }
-
-    public void setStartsWith(String startsWith) {
+    /** Setter */
+    public void setStartsWith(final String startsWith) {
         this.startsWith = startsWith;
     }
 
-
+    /** Getter */
     public Double getRate() {
         BigDecimal bigDecimal = new BigDecimal(rate).setScale(2, RoundingMode.FLOOR);
         return bigDecimal.doubleValue();
-//        return rate;
     }
-
-    public void setRate(Double rate) {
+    /** Setter */
+    public void setRate(final Double rate) {
         this.rate = rate;
     }
-
+    /** Getter */
     public String getCount() {
         return count;
     }
-
-    public void setCount(String count) {
+    /** Setter */
+    public void setCount(final String count) {
         this.count = count;
     }
-
+    /** Getter */
     public String getMovie() {
         return movie;
     }
-
-    public void setMovie(String movie) {
+    /** Setter */
+    public void setMovie(final String movie) {
         this.movie = movie;
     }
-
+    /** Getter */
     public Filter getFilters() {
         return filters;
     }
-
-    public void setFilters(Filter filters) {
+    /** Setter */
+    public void setFilters(final Filter filters) {
         this.filters = filters;
     }
 
+    /** Prints an action */
     @Override
     public String toString() {
-        return "ActionInput{" +
-                "type='" + type + '\'' +
-                ", page='" + page + '\'' +
-                ", feature='" + feature + '\'' +
-                ", credentials=" + credentials +
-                ", startsWith='" + startsWith + '\'' +
+        return "ActionInput{"
+                +
+                "type='" + type + '\''
+                +
+                ", page='" + page + '\''
+                +
+                ", feature='" + feature + '\''
+                +
+                ", credentials=" + credentials
+                +
+                ", startsWith='" + startsWith + '\''
+                +
                 '}';
     }
 }

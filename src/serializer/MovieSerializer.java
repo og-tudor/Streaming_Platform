@@ -1,33 +1,32 @@
-package Serializer;
+package serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.SerializerProvider;
-import com.fasterxml.jackson.databind.node.POJONode;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import movies.Movie;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.util.Formatter;
+
 
 public class MovieSerializer extends StdSerializer<Movie> {
     public MovieSerializer() {
         this(null);
     }
 
-    public MovieSerializer(Class<Movie> t) {
+    public MovieSerializer(final Class<Movie> t) {
         super(t);
     }
-
-    public static Double roundAvoid(double value, int places) {
-        double scale = Math.pow(10, places);
+    /** Round a double value to a certain number of decimal places */
+    public static Double roundAvoid(final double value, final int places) {
+        final int powerTen = 10;
+        double scale = Math.pow(powerTen, places);
         return Math.round(value * scale) / scale;
     }
+    /** overides Json serialization for Movies */
     @Override
-    public void serialize(Movie value, JsonGenerator jgen, SerializerProvider provider)
-            throws IOException {
+    public void serialize(final Movie value, final JsonGenerator jgen,
+                          final SerializerProvider provider)
+                          throws IOException {
         jgen.writeStartObject();
         jgen.writeStringField("name", value.getName());
         jgen.writeNumberField("year", value.getYear());
@@ -50,23 +49,7 @@ public class MovieSerializer extends StdSerializer<Movie> {
         }
         jgen.writeEndArray();
         jgen.writeNumberField("numLikes", value.getNumLikes());
-//        Double newValue = value.getRating() + 0.0001;
-//        BigDecimal bd = new BigDecimal(newValue).setScale(2, RoundingMode.FLOOR);
         jgen.writeNumberField("rating", value.getRating());
-//        DecimalFormat df = new DecimalFormat("###.###");
-//        jgen.writeNumberField("rating", Double.parseDouble(df.format(newValue)));
-//        jgen.writeNumberField("rating", roundAvoid(1.0045, 2).floatValue());
-//        jgen.writePOJO("rating", value.getRating());
-//        POJONode pojoNode = new POJONode(value.getRating());
-//        jgen.writePOJO(pojoNode);
-//        jgen.writeNumberField("rating", rou);
-//        Formatter formatter = new Formatter();
-//        formatter.format("%.2f", value.getRating());
-
-//        jgen.writeNumberField("rating", value.getRating());
-//        jgen.writeNumber
-//        writer.WriteRawValue($"{value:0.00}");
-//        jgen.writeRawValue($"{rating:0.00}");
         jgen.writeNumberField("numRatings", value.getNumRatings());
         jgen.writeEndObject();
     }
