@@ -23,7 +23,7 @@ public class UserDataBase {
     public static UserDataBase getInstance(ArrayList<UserInput> userInputs) {
         if (instance == null) {
             instance = new UserDataBase(userInputs);
-            System.out.println(userInputs);
+//            System.out.println(userInputs);
         }
         return instance;
     }

@@ -68,12 +68,6 @@ public class MovieDataBase {
                     Movie movieIn = movieDataBase.getMovies().get(i);
                     movies.add(movieIn);
                 }
-
-//                if (!movieDataBase.getMovies().get(i).getCountriesBanned().contains(user.getCredentials().getCountry())) {
-////                    Movie movie = new Movie(movieDataBase.getMovies().get(i));
-//                    Movie movie = movieDataBase.getMovies().get(i);
-//                    movies.add(movie);
-//                }
             }
         } else {
             this.movies.clear();
@@ -119,8 +113,6 @@ public class MovieDataBase {
                 movies.removeIf(x -> !(x.getGenres().containsAll(genreFilter)));
             }
         }
-
-        System.out.println("sorted movies" + movies);
 
         // Decreasing && Decreasing
         Comparator<Movie> movieComparator1 = new Comparator<Movie>() {
@@ -189,7 +181,6 @@ public class MovieDataBase {
         // Sort
         Sort sort = filter.getSort();
         if (sort == null) {
-            System.out.println("RETURN SORT");
             return;
         }
         String ratingOrder = sort.getRating();

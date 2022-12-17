@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import movies.CurrentMovieList;
 import movies.Movie;
 import movies.MovieDataBase;
 import pageStructure.*;
@@ -27,20 +28,15 @@ public class Main {
 
 
 
-//        SimpleModule module = new SimpleModule();
-//        module.addSerializer(Movie.class, new DoubleSerializer());
-//        objectMapper.registerModule(module);
-//        String serialized = objectMapper.writeValueAsString(Movie);
-
-
-
         ArrayList<ActionInput> actions = inputData.getActions();
-        Page currentPage = HomeUnauth.getInstance();
+//        Page currentPage = CurrentPage.getInstance();
+        Page currentPage = CurrentPage.getInstance();
         User currentUser = null;
         MovieDataBase.clearInstance();
         UserDataBase.clearInstance();
         MovieDataBase allMovies = MovieDataBase.getInstance(inputData.getMovies());
         MovieDataBase currentMovieList = new MovieDataBase();
+//        CurrentMovieList currentMovieList = CurrentMovieList.getInstance();
         UserDataBase userDataBase = UserDataBase.getInstance(inputData.getUsers());
 
         MovieDataBase seeDetailsMovie = null;
@@ -52,13 +48,14 @@ public class Main {
             ObjectNode node = objectMapper.createObjectNode();
             ActionInput action = actions.get(i);
             String switchPage = action.getPage();
-            System.out.println(currentPage);
+//            System.out.println(currentPage);
             switch (action.getType()) {
                 case "change page" :
                     if (currentPage.getLinks().containsKey(action.getPage())) {
                         currentPage = currentPage.getLinks().get(switchPage);
-                        if (action.getPage().equals("logout")) {
-                            System.out.println("logout successul");
+//                        currentPage.changePage()
+                        if (HomeUnauth.getInstance().equals(currentPage)) {
+//                            System.out.println("logout successul");
                             currentMovieList.getMovies().clear();
                             currentUser = null;
                         } else if (Movies.getInstance().equals(currentPage)) {
@@ -84,11 +81,11 @@ public class Main {
                             printOut = true;
                             if (seeDetailsMovie.getMovies().isEmpty()) {
                                 printError = true;
-                                System.out.println("There is no such movie");
+//                                System.out.println("There is no such movie");
                             }
                         }
                     } else {
-                        System.out.println("error, can't change PAGE");
+//                        System.out.println("error, can't change PAGE");
                         printOut = true;
                         printError = true;
                     }
@@ -100,14 +97,14 @@ public class Main {
                         case "login" :
                             printOut = true;
                             if (!(currentPage instanceof Login)) {
-                                System.out.println("not on loginPage");
+//                                System.out.println("not on loginPage");
                                 printError = true;
                                 break;
                             }
                             if (userDataBase.checkUser(credentials)) {
                                 currentPage = HomeAuth.getInstance();
                                 currentUser = userDataBase.findUser(credentials);
-                                System.out.println("login succesul");
+//                                System.out.println("login succesul");
                             } else {
                                 currentPage = HomeUnauth.getInstance();
                                 printError = true;
@@ -117,21 +114,21 @@ public class Main {
 //                            if (userDataBase.checkUser(credentials))
                             printOut = true;
                             if (!(currentPage instanceof Register)) {
-                                System.out.println("not on registerPage");
+//                                System.out.println("not on registerPage");
                                 printError = true;
                                 break;
                             }
                             userDataBase.insertUser(credentials);
                             currentPage = HomeAuth.getInstance();
                             currentUser = userDataBase.findUser(credentials);
-                            System.out.println("register & login succesul");
+//                            System.out.println("register & login succesul");
 
                             break;
                         case "search" :
-                            System.out.println("search succesful");
+//                            System.out.println("search succesful");
                             printOut = true;
                             if (!Movies.getInstance().equals(currentPage)) {
-                                System.out.println("not on MoviesPage");
+//                                System.out.println("not on MoviesPage");
                                 printError = true;
                                 break;
                             }
@@ -142,13 +139,13 @@ public class Main {
                         case "filter" :
                             printOut = true;
                             if (Movies.getInstance().equals(currentPage) || Details.getInstance().equals(currentPage)) {
-                                System.out.println("filter succesful");
+//                                System.out.println("filter succesful");
                                 currentMovieList.populate(currentUser);
-                                System.out.println(currentMovieList);
+//                                System.out.println(currentMovieList);
                                 currentMovieList.filter(action);
                                 filter = true;
                             } else {
-                                System.out.println("not on MoviesPage");
+//                                System.out.println("not on MoviesPage");
                                 printError = true;
                             }
 
@@ -156,7 +153,7 @@ public class Main {
                         case "buy tokens":
                             // Verific daca e details
                             if (!Upgrade.getInstance().equals(currentPage)) {
-                                System.out.println("not on UpgradesPage");
+//                                System.out.println("not on UpgradesPage");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -169,9 +166,9 @@ public class Main {
 
                                 String newBalance = Integer.toString(newBalanceInt);
                                 currentUser.getCredentials().setBalance(newBalance);
-                                System.out.println("tokens bought");
+//                                System.out.println("tokens bought");
                             } else {
-                                System.out.println("Balance too low to purchase tokens");
+//                                System.out.println("Balance too low to purchase tokens");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -180,7 +177,7 @@ public class Main {
 
                         case "buy premium account":
                             if (!Upgrade.getInstance().equals(currentPage)) {
-                                System.out.println("not on UpgradesPage");
+//                                System.out.println("not on UpgradesPage");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -190,15 +187,15 @@ public class Main {
                             if (currentUser.getCredentials().getAccountType().equals(Credentials.AccountType.premium)) {
                                 printOut = true;
                                 printError = true;
-                                System.out.println("already a premium user");
+//                                System.out.println("already a premium user");
                                 break;
                             }
                             if (userTokens >= 10) {
                                 currentUser.setTokensCount(currentUser.getTokensCount() - 10);
                                 currentUser.getCredentials().setAccountType(Credentials.AccountType.premium);
-                                System.out.println("premium bought");
+//                                System.out.println("premium bought");
                             } else {
-                                System.out.println("Balance too low to purchase premium");
+//                                System.out.println("Balance too low to purchase premium");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -208,7 +205,7 @@ public class Main {
                             printOut = true;
                             printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
-                                System.out.println("not on DetailsPage");
+//                                System.out.println("not on DetailsPage");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -222,7 +219,7 @@ public class Main {
                             printOut = true;
                             printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
-                                System.out.println("not on DetailsPage");
+//                                System.out.println("not on DetailsPage");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -236,7 +233,7 @@ public class Main {
                             printOut = true;
                             printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
-                                System.out.println("not on DetailsPage");
+//                                System.out.println("not on DetailsPage");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -250,7 +247,7 @@ public class Main {
                             printOut = true;
                             printError = true;
                             if (!Details.getInstance().equals(currentPage)) {
-                                System.out.println("not on DetailsPage");
+//                                System.out.println("not on DetailsPage");
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -290,8 +287,8 @@ public class Main {
 
 
         // TODO delete out file
-        char[] testNumber = args[0].toCharArray();
-        objectWriter.writeValue(new File("checker/resources/result/output"+ testNumber[testNumber.length-6] + ".json"), output);
+//        char[] testNumber = args[0].toCharArray();
+//        objectWriter.writeValue(new File("checker/resources/result/output"+ testNumber[testNumber.length-6] + ".json"), output);
         objectWriter.writeValue(new File("results.out"), output);
 
     }

@@ -27,6 +27,10 @@ public abstract class Page {
     public void insertLink(String pageName, Page page) {
         links.put(pageName, page);
     }
+
+    public void execute() {
+        
+    }
     public void printLinks() {
         System.out.println(links);
     }

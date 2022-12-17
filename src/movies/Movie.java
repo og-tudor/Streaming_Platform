@@ -12,29 +12,6 @@ import java.util.Comparator;
 
 @JsonSerialize(using = MovieSerializer.class)
 public class Movie {
-//            "name": "Lord, Save Us from Your Followers",
-//            "year": 1998,
-//            "duration": 125,
-//            "genres": [
-//            "Comedy",
-//            "Western",
-//            "Mystery"
-//            ],
-//            "actors": [
-//            "Camey Ingold",
-//            "Grace Volleth",
-//            "Jermaine D'Ruel",
-//            "Anselma Saxelby"
-//            ],
-//            "countriesBanned": [
-//            "Russia",
-//            "Saudi Arabia",
-//            "Zimbabwe"
-//            ],
-//            "numLikes": 0,
-//            "rating": 0,
-//            "numRatings": 0
-//},
     private String name;
     private int year;
     private int duration;
@@ -44,6 +21,8 @@ public class Movie {
     private int numLikes;
     private Double rating;
     private int numRatings;
+
+    private Double totalRating = 0.00;
 
     public Movie(String name, int year, int duration, ArrayList<String> genres, ArrayList<String> actors, ArrayList<String> countriesBanned, int numLikes, Double rating, int numRatings) {
         this.name = name;
@@ -120,7 +99,6 @@ public class Movie {
     public Double getRating() {
 //        this.rating = rating + 0.0001;
         BigDecimal bigDecimal = new BigDecimal(rating).setScale(2, RoundingMode.FLOOR);
-        System.out.println("BigDecimal  = " + bigDecimal.doubleValue());
         return bigDecimal.doubleValue();
     }
 
@@ -135,6 +113,13 @@ public class Movie {
 
     public void setNumRatings(int numRatings) {
         this.numRatings = numRatings;
+    }
+    public Double getTotalRating() {
+        return totalRating;
+    }
+
+    public void setTotalRating(Double totalRating) {
+        this.totalRating = totalRating;
     }
 
     @Override
@@ -151,21 +136,4 @@ public class Movie {
                 ", numRatings=" + numRatings +
                 '}';
     }
-
-//    @Override
-//    public int compareTo(Movie o) {
-//        if (this.rating == o.rating) {
-//            if (this.duration == o.duration) {
-//                return 0;
-//            } else if (this.duration > o.duration) {
-//                return 1;
-//            } else {
-//                return -1;
-//            }
-//        } else if (this.rating > o.rating) {
-//            return 1;
-//        } else {
-//            return -1;
-//        }
-//    }
 }

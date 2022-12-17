@@ -70,10 +70,10 @@ public class User {
             this.purchasedMovies.add(movieInDataBase);
             this.tokensCount -= 2;
         } else {
-            System.out.println("can't puchase movie");
+//            System.out.println("can't puchase movie");
             return true;
         }
-        System.out.println("movie purchased");
+//        System.out.println("movie purchased");
         return false;
     }
 
@@ -82,9 +82,9 @@ public class User {
         if (this.purchasedMovies.contains(movie)) {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             this.watchedMovies.add(movieInDataBase);
-            System.out.println("movie watched");
+//            System.out.println("movie watched");
         } else {
-            System.out.println("movie not puchased, can t be watched");
+//            System.out.println("movie not puchased, can t be watched");
             return true;
         }
         return false;
@@ -96,9 +96,9 @@ public class User {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
             movieInDataBase.setNumLikes(movieInDataBase.getNumLikes() + 1);
             this.likedMovies.add(movieInDataBase);
-            System.out.println("movie liked");
+//            System.out.println("movie liked");
         } else {
-            System.out.println("movie not watched, can t be liked");
+//            System.out.println("movie not watched, can t be liked");
             return true;
         }
         return false;
@@ -106,19 +106,21 @@ public class User {
 
     public boolean rateMovie(Movie movie, Double rate) {
         if (rate > 5 || rate < 0) {
-            System.out.println("Rating not in[0-5]");
+//            System.out.println("Rating not in[0-5]");
             return true;
         }
         if (this.watchedMovies.contains(movie)) {
             Movie movieInDataBase = MovieDataBase.getInstance().find(movie.getName());
-            Double newRate = movieInDataBase.getRating() + rate;
-            movieInDataBase.setRating(newRate);
-
             movieInDataBase.setNumRatings(movieInDataBase.getNumRatings() + 1);
+            movieInDataBase.setTotalRating(movieInDataBase.getTotalRating() + rate);
+            Double newRate = (movieInDataBase.getTotalRating())/movieInDataBase.getNumRatings();
+
+            movieInDataBase.setRating(Math.floor(newRate));
+
             this.ratedMovies.add(movieInDataBase);
-            System.out.println("movie rated");
+//            System.out.println("movie rated");
         } else {
-            System.out.println("movie not watched, can t be rated");
+//            System.out.println("movie not watched, can t be rated");
             return true;
         }
         return false;
