@@ -272,10 +272,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ ],
   "currentUser" : {
@@ -509,10 +505,6 @@
     } ],
     "notifications" : [ ]
   }
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
 }, {
   "error" : "Error",
   "currentMoviesList" : [ ],
@@ -943,10 +935,6 @@
     } ],
     "notifications" : [ ]
   }
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
 }, {
   "error" : null,
   "currentMoviesList" : [ {

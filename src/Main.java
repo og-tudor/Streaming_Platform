@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Stack;
 
 public class Main {
+    /** Main method */
     public static void main(final String[] args) throws IOException {
         // Reading inputData
         ObjectMapper objectMapper = new ObjectMapper();
@@ -58,6 +59,7 @@ public class Main {
                         currentPage = currentPage.getLinks().get(switchPage);
                         if (HomeUnauth.getInstance().equals(currentPage)) {
                             currentMovieList.getMovies().clear();
+                            PreviousPages.getInstance().getStack().clear();
                             currentUser = null;
                         } else if (Movies.getInstance().equals(currentPage)) {
                             printOut = true;
@@ -173,7 +175,9 @@ public class Main {
                             }
                             int userTokens = currentUser.getTokensCount();
                             // Already a premium user
-                            if (currentUser.getCredentials().getAccountType().equals(Credentials.AccountType.premium)) {
+                            Credentials.AccountType accountType =
+                                    currentUser.getCredentials().getAccountType();
+                            if (accountType.equals(Credentials.AccountType.premium)) {
                                 printOut = true;
                                 printError = true;
                                 break;
@@ -250,7 +254,8 @@ public class Main {
                             if (!seeDetailsMovie.getMovies().isEmpty()) {
 
                                 currentMovie = seeDetailsMovie.getMovies().get(0);
-                                printError = currentUser.subscribe(currentMovie, action.getSubscribedGenre());
+                                printError = currentUser.subscribe(currentMovie,
+                                                                    action.getSubscribedGenre());
                                 printOut = true;
                             }
                             break;
@@ -273,9 +278,22 @@ public class Main {
                             break;
                         case "delete":
                             String deletedMovie = action.getDeletedMovie();
-
+                            printError = allMovies.deleteMovie(deletedMovie);
+                            if (printError) {
+                                printOut = true;
+                            }
                             break;
                     }
+                    break;
+
+                case "back":
+                    Stack<Page> stack = PreviousPages.getInstance().getStack();
+                    if (HomeUnauth.getInstance().equals(stack.peek())) {
+                       printOut = true;
+                       printError = true;
+                       break;
+                    }
+                    currentPage = PreviousPages.getInstance().getStack().pop();
                     break;
 
                 default:
@@ -289,8 +307,9 @@ public class Main {
             // Making deep copies
             MovieDataBase currentMovieListCopy = new MovieDataBase(currentMovieList, currentUser);
             User currentUserCopy = null;
-            if (currentUser != null)
+            if (currentUser != null) {
                 currentUserCopy = new User(currentUser);
+            }
             if (printError && printOut) {
                 currentMovieListCopy.getMovies().clear();
                 node.putPOJO("error", "Error");
@@ -305,8 +324,6 @@ public class Main {
             }
         }
         // Writing to the JSON file
-        char[] testNumber = args[0].toCharArray();
-        objectWriter.writeValue(new File("checker/resources/result/output"+ testNumber[testNumber.length-6] + ".json"), output);
         objectWriter.writeValue(new File("results.out"), output);
     }
 }

@@ -99,7 +99,7 @@ public class ActionInput {
         return subscribedGenre;
     }
     /** Setter */
-    public void setSubscribedGenre(String subscribedGenre) {
+    public void setSubscribedGenre(final String subscribedGenre) {
         this.subscribedGenre = subscribedGenre;
     }
     /** Getter */
@@ -115,7 +115,7 @@ public class ActionInput {
         return deletedMovie;
     }
     /** Setter */
-    public void setDeletedMovie(String deletedMovie) {
+    public void setDeletedMovie(final String deletedMovie) {
         this.deletedMovie = deletedMovie;
     }
 

@@ -7,11 +7,8 @@ import input.Sort;
 import users.User;
 import users.UserDataBase;
 
-import java.awt.desktop.UserSessionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
-
-//import java.util.*;
 
 public class MovieDataBase {
     protected ArrayList<Movie> movies = new ArrayList<>();
@@ -94,7 +91,7 @@ public class MovieDataBase {
         }
         return null;
     }
-
+    /** Inserts a movie into the database and notifies it's subscribed users */
     public boolean insertMovie(final MovieInput movieInput) {
         if (find(movieInput.getName()) != null) {
             return true;
@@ -105,7 +102,20 @@ public class MovieDataBase {
                 0, 0.00, 0);
         movies.add(movie);
         UserDataBase userDataBase = UserDataBase.getInstance();
-//        userDataBase.
+        userDataBase.notify(movie.getName(), "ADD");
+        // TODO notify users
+        return false;
+    }
+    /** Deletes a movie from the database and notifies all users */
+    public boolean deleteMovie(final String movieInput) {
+        if (find(movieInput) == null) {
+            return true;
+        }
+        // Deleting the movie
+        MovieDataBase allMovies = MovieDataBase.getInstance();
+        allMovies.movies.removeIf(x -> x.getName().equals(movieInput));
+        UserDataBase userDataBase = UserDataBase.getInstance();
+        userDataBase.notify(movieInput, "DELETE");
         // TODO notify users
         return false;
     }

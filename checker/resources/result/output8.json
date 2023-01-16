@@ -399,14 +399,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "Penelope",
@@ -719,14 +711,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "Little Foxes, The",
@@ -1142,26 +1126,6 @@
     } ],
     "notifications" : [ ]
   }
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
 }, {
   "error" : "Error",
   "currentMoviesList" : [ ],
@@ -1885,14 +1849,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "Shaolin Temple (Shao Lin si)",
@@ -2525,14 +2481,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "Endangered Species",
@@ -3285,14 +3233,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "As You Like It",
@@ -4148,14 +4088,6 @@
     } ],
     "notifications" : [ ]
   }
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
 }, {
   "error" : "Error",
   "currentMoviesList" : [ ],
@@ -5165,14 +5097,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "Indiana Jones and the Temple of Doom",
@@ -5979,10 +5903,6 @@
     } ],
     "notifications" : [ ]
   }
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
 }, {
   "error" : null,
   "currentMoviesList" : [ {

@@ -2,6 +2,8 @@ package users;
 
 import input.Credentials;
 import input.UserInput;
+import movies.Movie;
+import movies.MovieDataBase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +36,24 @@ public class UserDataBase {
 
             this.users.put(credentials.getName(), user);
             //TODO add stats
+        }
+    }
+
+    /** Sends a notification to all users */
+    public void notify(final String movieName, final String message) {
+        for (int i = 0; i < this.users.size(); i++) {
+            User user = this.users.get(i);
+            MovieDataBase allMovies = MovieDataBase.getInstance();
+            if (user != null) {
+                String userCountry = user.getCredentials().getCountry();
+                Movie movie = allMovies.find(movieName);
+                if (movie.getCountriesBanned().contains(userCountry)) {
+                    if (user.isSubscribed(movie)) {
+                        Notification notification = new Notification(movieName, message);
+                        user.getNotification(notification);
+                    }
+                }
+            }
         }
     }
 

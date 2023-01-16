@@ -386,10 +386,6 @@
   "currentMoviesList" : [ ],
   "currentUser" : null
 }, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
-}, {
   "error" : null,
   "currentMoviesList" : [ {
     "name" : "Little Foxes, The",
@@ -447,10 +443,6 @@
     "ratedMovies" : [ ],
     "notifications" : [ ]
   }
-}, {
-  "error" : "Error",
-  "currentMoviesList" : [ ],
-  "currentUser" : null
 }, {
   "error" : "Error",
   "currentMoviesList" : [ ],

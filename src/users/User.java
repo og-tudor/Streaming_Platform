@@ -15,8 +15,8 @@ public class User {
     private ArrayList<Movie> watchedMovies = new ArrayList<>();
     private ArrayList<Movie> likedMovies = new ArrayList<>();
     private ArrayList<Movie> ratedMovies = new ArrayList<>();
-    private ArrayList<Movie> notifications = new ArrayList<>();
-    private ArrayList<String> genres = new ArrayList<>();;
+    private ArrayList<String> genres = new ArrayList<>();
+    private ArrayList<Notification> notifications = new ArrayList<>();
     private final int maxRating = 5;
 
     /** Input Constructor */
@@ -46,6 +46,11 @@ public class User {
         for (int i = 0; i < user.ratedMovies.size(); i++) {
             Movie movie = new Movie(user.ratedMovies.get(i));
             this.ratedMovies.add(movie);
+        }
+        // Copiere notifications
+        for (int i = 0; i < user.notifications.size(); i++) {
+            Notification notification = new Notification(user.notifications.get(i));
+            this.notifications.add(notification);
         }
         // Copiere genres Subscribed;
         this.genres.addAll(user.genres);
@@ -117,6 +122,20 @@ public class User {
         }
         return true;
     }
+    /** Returns true if a user is subscribed to a genre from a certain Movie */
+    public boolean isSubscribed(final Movie movie) {
+        for (int i = 0; i < movie.getGenres().size(); i++) {
+            String movieGenre = movie.getGenres().get(i);
+            if (this.genres.contains(movieGenre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void getNotification(Notification notification) {
+        this.notifications.add(notification);
+    }
     /** Getter */
     public Credentials getCredentials() {
         return credentials;
@@ -174,13 +193,14 @@ public class User {
         this.ratedMovies = ratedMovies;
     }
     /** Getter */
-    public ArrayList<Movie> getNotifications() {
+    public ArrayList<Notification> getNotifications() {
         return notifications;
     }
     /** Setter */
-    public void setNotifications(ArrayList<Movie> notifications) {
+    public void setNotifications(ArrayList<Notification> notifications) {
         this.notifications = notifications;
     }
+
     /** Getter */
     @JsonIgnore
     public ArrayList<String> getGenres() {

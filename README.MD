@@ -1,6 +1,6 @@
 ** **Frecus Tudor-George \\ 324CA** **
 
-# Proiect - Etapa 1 - POO TV
+# Proiect - Etapa 2 - POO TV
 ***
 ## Description :
 Nowadays, movie or series viewing platforms such as Netflix or HBO MAX have become extremely popular both in Romania and especially worldwide.
@@ -72,13 +72,13 @@ I made all the decision-making in the Main class, the flow of the program is as 
 <li>Finally I write the output to the JSON file</li>
 </ul>
 
+****
+
+### Database :
+For this feature I added two new functions in the MovieDatabase class that add and delete a movie and notify the coresponding users, for the notifications system I added a new class(Notification) and a function in UsersDatabase that should have notified all the users but I didn't implement it fully.
+
+### Back :
+For this functionality I created a class PreviousPages that's a singleton, in it there's a stack that holds all the previous pages a user has visited, It should reset after a logout. I didn't get to finnish this functionality as well.
+
 ## Personal Comments :
-The explications on the HomeWork Page weren't very useful, it wasn't properly explained when and how to print the output, sometimes the explications
-would not be in agreement ot the answers on the forum(ex: It was written on OCW that filtering is done first by rating and then by duration but on the forum there is the exact opposite answer.)
-Besides this I think it was a good homework.
-
-For improvement, I could have used a Design Pattern to remember which action was previously done instead of having a boolean value for "filter", for example.
-
-I could have also modularized the code in main but I didn't have the time to.
-
-I made a custom serializer for Movie class to display double decimal places for rating but for the life of me I still couldn't get it to show 2 decimal places.
+I think the tasks were written clearly and I easily understood them and started working, unlike the first stage of the project. I also think that the difficulty was perfect and I believe that I could easily have finished the homework if I didn't start working on it right before the deadline.

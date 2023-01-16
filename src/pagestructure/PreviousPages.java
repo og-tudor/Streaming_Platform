@@ -12,20 +12,22 @@ public class PreviousPages {
         }
         return instance;
     }
-    Stack<Page> stack = new Stack<Page>();
-
+    protected Stack<Page> stack = new Stack<Page>();
+    /** Getter */
     public Stack<Page> getStack() {
         return stack;
     }
-
-    public void setStack(Stack<Page> stack) {
+    /** Setter */
+    public void setStack(final Stack<Page> stack) {
         this.stack = stack;
     }
-
+    /** ToString */
     @Override
     public String toString() {
-        return "PreviousPages{" +
-                "stack=" + stack +
+        return "PreviousPages{"
+                +
+                "stack=" + stack
+                +
                 '}';
     }
 }
