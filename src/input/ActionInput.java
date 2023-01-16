@@ -13,6 +13,9 @@ public class ActionInput {
     private String movie;
     private String count;
     private Double rate;
+    private MovieInput addedMovie;
+    private String deletedMovie;
+    private String subscribedGenre;
 
     public ActionInput() {
     }
@@ -91,6 +94,30 @@ public class ActionInput {
     public void setFilters(final Filter filters) {
         this.filters = filters;
     }
+    /** Getter */
+    public String getSubscribedGenre() {
+        return subscribedGenre;
+    }
+    /** Setter */
+    public void setSubscribedGenre(String subscribedGenre) {
+        this.subscribedGenre = subscribedGenre;
+    }
+    /** Getter */
+    public MovieInput getAddedMovie() {
+        return addedMovie;
+    }
+    /** Setter */
+    public void setAddedMovie(MovieInput addedMovie) {
+        this.addedMovie = addedMovie;
+    }
+    /** Getter */
+    public String getDeletedMovie() {
+        return deletedMovie;
+    }
+    /** Setter */
+    public void setDeletedMovie(String deletedMovie) {
+        this.deletedMovie = deletedMovie;
+    }
 
     /** Prints an action */
     @Override
@@ -106,6 +133,16 @@ public class ActionInput {
                 ", credentials=" + credentials
                 +
                 ", startsWith='" + startsWith + '\''
+                +
+                ", filters=" + filters
+                +
+                ", movie='" + movie + '\''
+                +
+                ", count='" + count + '\''
+                +
+                ", rate=" + rate
+                +
+                ", subscribedGenre='" + subscribedGenre + '\''
                 +
                 '}';
     }

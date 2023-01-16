@@ -7,6 +7,7 @@ public class HomeUnauth extends Page {
         if (instance == null) {
             instance = new HomeUnauth() {
             };
+//            previousPages = PreviousPages.getInstance();
             Login login = (Login) Login.getInstance();
             Register register = (Register) Register.getInstance();
             instance.insertLink("login", login);

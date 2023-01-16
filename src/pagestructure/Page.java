@@ -13,6 +13,8 @@ public abstract class Page {
         }
         return instance;
     }
+
+    PreviousPages previousPages = PreviousPages.getInstance();
     protected Map<String, Page> links = new HashMap<>();
     /** Getter */
     public Map<String, Page> getLinks() {
@@ -26,6 +28,15 @@ public abstract class Page {
     public void insertLink(final String pageName, final Page page) {
         links.put(pageName, page);
     }
+    /** Getter */
+    public PreviousPages getPreviousPages() {
+        return previousPages;
+    }
+    /** Setter */
+    public void setPreviousPages(PreviousPages previousPages) {
+        this.previousPages = previousPages;
+    }
+
     /** Prints all links in a page */
     public void printLinks() {
         System.out.println(links);

@@ -5,7 +5,9 @@ import input.Filter;
 import input.MovieInput;
 import input.Sort;
 import users.User;
+import users.UserDataBase;
 
+import java.awt.desktop.UserSessionListener;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -32,7 +34,7 @@ public class MovieDataBase {
     public MovieDataBase(final ArrayList<MovieInput> moviesInput) {
         for (int i = 0; i < moviesInput.size(); i++) {
             MovieInput movieInput = moviesInput.get(i);
-            Movie movie = new Movie(movieInput.getName(), movieInput.getYear(),
+            Movie movie = new Movie(movieInput.getName(), Integer.toString(movieInput.getYear()),
                                     movieInput.getDuration(), movieInput.getGenres(),
                                     movieInput.getActors(), movieInput.getCountriesBanned(),
                                     0, 0.00, 0);
@@ -91,6 +93,21 @@ public class MovieDataBase {
             }
         }
         return null;
+    }
+
+    public boolean insertMovie(final MovieInput movieInput) {
+        if (find(movieInput.getName()) != null) {
+            return true;
+        }
+        Movie movie = new Movie(movieInput.getName(), Integer.toString(movieInput.getYear()),
+                movieInput.getDuration(), movieInput.getGenres(),
+                movieInput.getActors(), movieInput.getCountriesBanned(),
+                0, 0.00, 0);
+        movies.add(movie);
+        UserDataBase userDataBase = UserDataBase.getInstance();
+//        userDataBase.
+        // TODO notify users
+        return false;
     }
 
     /** Filters a movieDatabase based on actors and genres

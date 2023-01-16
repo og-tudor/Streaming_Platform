@@ -1,5 +1,6 @@
 package users;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import input.Credentials;
 import movies.Movie;
 import movies.MovieDataBase;
@@ -14,6 +15,8 @@ public class User {
     private ArrayList<Movie> watchedMovies = new ArrayList<>();
     private ArrayList<Movie> likedMovies = new ArrayList<>();
     private ArrayList<Movie> ratedMovies = new ArrayList<>();
+    private ArrayList<Movie> notifications = new ArrayList<>();
+    private ArrayList<String> genres = new ArrayList<>();;
     private final int maxRating = 5;
 
     /** Input Constructor */
@@ -44,6 +47,8 @@ public class User {
             Movie movie = new Movie(user.ratedMovies.get(i));
             this.ratedMovies.add(movie);
         }
+        // Copiere genres Subscribed;
+        this.genres.addAll(user.genres);
     }
 
     /** Returns true if there was an error when buying the movie */
@@ -101,6 +106,17 @@ public class User {
         }
         return false;
     }
+
+    public boolean subscribe(final Movie movie, final String genre) {
+        if (movie.getGenres().contains(genre)) {
+            if (this.genres.contains(genre)) {
+                return true;
+            }
+            this.genres.add(genre);
+            return false;
+        }
+        return true;
+    }
     /** Getter */
     public Credentials getCredentials() {
         return credentials;
@@ -157,11 +173,29 @@ public class User {
     public void setRatedMovies(final ArrayList<Movie> ratedMovies) {
         this.ratedMovies = ratedMovies;
     }
+    /** Getter */
+    public ArrayList<Movie> getNotifications() {
+        return notifications;
+    }
+    /** Setter */
+    public void setNotifications(ArrayList<Movie> notifications) {
+        this.notifications = notifications;
+    }
+    /** Getter */
+    @JsonIgnore
+    public ArrayList<String> getGenres() {
+        return genres;
+    }
+    /** Setter */
+    @JsonIgnore
+    public void setGenres(ArrayList<String> genres) {
+        this.genres = genres;
+    }
+
     /** Prints the users credentials and data */
     @Override
     public String toString() {
-        return "User{"
-                +
+        return "User{" +
                 "credentials=" + credentials
                 +
                 ", tokensCount=" + tokensCount
@@ -175,6 +209,10 @@ public class User {
                 ", likedMovies=" + likedMovies
                 +
                 ", ratedMovies=" + ratedMovies
+                +
+                ", notifications=" + notifications
+                +
+                ", maxRating=" + maxRating
                 +
                 '}';
     }

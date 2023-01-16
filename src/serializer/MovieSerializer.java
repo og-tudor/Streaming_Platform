@@ -29,7 +29,7 @@ public class MovieSerializer extends StdSerializer<Movie> {
                           throws IOException {
         jgen.writeStartObject();
         jgen.writeStringField("name", value.getName());
-        jgen.writeNumberField("year", value.getYear());
+        jgen.writeStringField("year", value.getYear());
         jgen.writeNumberField("duration", value.getDuration());
         jgen.writeArrayFieldStart("genres");
         for (int i = 0; i < value.getGenres().size(); i++) {

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import input.ActionInput;
 import input.Credentials;
 import input.Input;
+import input.MovieInput;
 import movies.Movie;
 import movies.MovieDataBase;
 import pagestructure.*;
@@ -14,6 +15,7 @@ import users.UserDataBase;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Main {
     public static void main(final String[] args) throws IOException {
@@ -42,7 +44,7 @@ public class Main {
             // PrintOut and Print error determine if output will be written and what type
             boolean printOut = false;
             boolean printError = false;
-
+//            System.out.println(currentPage.getPreviousPages());
             ObjectNode node = objectMapper.createObjectNode();
             ActionInput action = actions.get(i);
             String switchPage = action.getPage();
@@ -50,6 +52,9 @@ public class Main {
                 case "change page" :
                     // Checking if the page the user is trying to access is on the current page
                     if (currentPage.getLinks().containsKey(action.getPage())) {
+                        // Adding to the previous pages stack
+                        currentPage.getPreviousPages().getStack().push(currentPage);
+                        // Switching the Page
                         currentPage = currentPage.getLinks().get(switchPage);
                         if (HomeUnauth.getInstance().equals(currentPage)) {
                             currentMovieList.getMovies().clear();
@@ -235,6 +240,20 @@ public class Main {
                                 printOut = true;
                             }
                             break;
+                        case "subscribe":
+//                            printError = true;
+                            if (!Details.getInstance().equals(currentPage)) {
+                                printOut = true;
+                                printError = true;
+                                break;
+                            }
+                            if (!seeDetailsMovie.getMovies().isEmpty()) {
+
+                                currentMovie = seeDetailsMovie.getMovies().get(0);
+                                printError = currentUser.subscribe(currentMovie, action.getSubscribedGenre());
+                                printOut = true;
+                            }
+                            break;
                         default:
                             // Not a valid command
                             printOut = true;
@@ -242,6 +261,23 @@ public class Main {
                             break;
                     }
                     break;
+                case "database":
+                    feature = action.getFeature();
+                    credentials = action.getCredentials();
+                    switch (feature) {
+                        case "add":
+                            MovieInput addedMovie = action.getAddedMovie();
+                            printError = allMovies.insertMovie(addedMovie);
+                            if (printError)
+                                printOut = true;
+                            break;
+                        case "delete":
+                            String deletedMovie = action.getDeletedMovie();
+
+                            break;
+                    }
+                    break;
+
                 default:
                     // Not a valid command
                     printOut = true;
@@ -269,7 +305,8 @@ public class Main {
             }
         }
         // Writing to the JSON file
+        char[] testNumber = args[0].toCharArray();
+        objectWriter.writeValue(new File("checker/resources/result/output"+ testNumber[testNumber.length-6] + ".json"), output);
         objectWriter.writeValue(new File("results.out"), output);
-
     }
 }

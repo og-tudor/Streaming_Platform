@@ -11,7 +11,7 @@ import java.util.ArrayList;
 @JsonSerialize(using = MovieSerializer.class)
 public class Movie {
     private String name;
-    private int year;
+    private String year;
     private int duration;
     private ArrayList<String> genres;
     private ArrayList<String> actors;
@@ -22,7 +22,7 @@ public class Movie {
 
     private Double totalRating = 0.00;
 
-    public Movie(final String name, final int year, final int duration,
+    public Movie(final String name, final String year, final int duration,
                  final ArrayList<String> genres, final ArrayList<String> actors,
                  final ArrayList<String> countriesBanned, final int numLikes,
                  final Double rating, final int numRatings) {
@@ -50,11 +50,11 @@ public class Movie {
         this.name = name;
     }
     /** Getter */
-    public int getYear() {
+    public String getYear() {
         return year;
     }
     /** Setter */
-    public void setYear(final int year) {
+    public void setYear(String year) {
         this.year = year;
     }
     /** Getter */
