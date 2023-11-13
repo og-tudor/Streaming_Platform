@@ -1,6 +1,6 @@
 ** **Frecus Tudor-George \\ 324CA** **
 
-# Proiect - Etapa 2 - POO TV
+# Project - POO TV
 ***
 ## Description :
 Nowadays, movie or series viewing platforms such as Netflix or HBO MAX have become extremely popular both in Romania and especially worldwide.
